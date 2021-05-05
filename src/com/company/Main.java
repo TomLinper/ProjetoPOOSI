@@ -16,19 +16,18 @@ public class Main {
     }
 
     private static void loginPage() {
-        int i = 0;
         System.out.println("1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
         int opcao = in.nextInt();
         in.nextLine();
 
-        while (i != -1) {
+        while (opcao != -1) {
             switch (opcao) {
                 case 1:
-                    login(0);
+                    login("com.company.Aluno");
                     opcao = 0;
                     break;
                 case 2:
-                    login(1);
+                    login("com.company.Professor");
                     opcao = 0;
                     break;
                 case 3:
@@ -40,7 +39,7 @@ public class Main {
                     opcao = 0;
                     break;
                 case 5:
-                    i = -1;
+                    opcao = -1;
                     break;
                 default:
                     System.out.println("1. Fazer login como professor\n2. Fazer login como aluno\n3. Registar utlizador\n4. Registar nova UC\n5. Terminar");
@@ -126,18 +125,18 @@ public class Main {
      * Pagina do login.
      * @param tipo Tipo de pessoa. Aluno = 1 / Professor = 2
      */
-    private static void login(int tipo) {
+    private static void login(String tipo) {
         System.out.println("Insira o seu nome...");
         String nome = in.nextLine();
 
         System.out.println("Insira a sua password...");
         String pass = in.nextLine();
 
-        if (engInf.checkLogin(nome, pass)) {
+        if (engInf.checkLogin(nome, pass, tipo)) {
             System.out.println("Bem-vindo " + nome);
             userAtual = engInf.getUserAtual(nome, pass);
 
-            if (tipo == 0) {
+            if (tipo.equals("com.company.Aluno")) {
                 menuAluno();
             } else {
                 menuProf();
@@ -161,7 +160,31 @@ public class Main {
      * Menu por onde o aluno tem acesso à plataforma.
      */
     public static void menuAluno() {
+        System.out.println("1. Ver uma publicacao \n2. Mandar mensagem a um Professor");
+        int opcao = in.nextInt();
 
+        while (opcao != -1) {
+            switch (opcao) {
+                case 1:
+                    //Escolha da publicacao
+                    UC uc = escolhaUC();
+                    Tema tema = escolhaTema(uc);
+                    Publicacao pub = escolhaPubVisiveis(uc, tema);
+
+                    //Visualização do ficheiro.
+                    //TODO Perguntar sobre isto na classe Curso.
+                    //TODO Adicionar Material.
+                    if (pub.getClass().getName().equals("com.company.Anuncio")) {
+                        System.out.println("-------" + pub.getTitulo() + "-------");
+                        System.out.println(pub.getCorpo());
+                    }
+
+                    opcao = 0;
+                    break;
+                case 2:
+
+            }
+        }
     }
 
     /**
@@ -169,7 +192,7 @@ public class Main {
      */
     public static void menuProf() {
 
-        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade dos ficheiros\n4. Ver unidade curricular\n4. Voltar");
+        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -198,19 +221,10 @@ public class Main {
                     }
 
                     //Escolha da unidade curricular.
-                    System.out.println("Escolha a unidade curricular:");
-                    engInf.printUCProf(userAtual);
-                    int indexUC = in.nextInt();
-                    in.nextLine();
+                    UC uc = escolhaUC();
 
                     //Escolha do tema.
-                    System.out.println("Escolha um tema:");
-                    UC uc = engInf.getUCProfFromIndex(userAtual, indexUC);
-                    engInf.printTema(uc);
-                    int indexTema = in.nextInt();
-                    in.nextLine();
-
-                    Tema tema = engInf.getTemaFromIndex(uc, indexTema);
+                    Tema tema = escolhaTema(uc);
 
                     //Criação da publicacao.
                     if (aux == 1) {
@@ -253,7 +267,9 @@ public class Main {
                     break;
                 case 3:
                     //Escolha da publicacao.
-                    Publicacao pub = escolhaPub();
+                    uc = escolhaUC();
+                    tema = escolhaTema(uc);
+                    Publicacao pub = escolhaPub(uc, tema);
 
                     //Alteração da visibilidade do ficheiro.
                     if (pub.isVisibilidade()) {
@@ -275,7 +291,9 @@ public class Main {
                     break;
                 case 4:
                     //Escolha da publicacao.
-                    pub = escolhaPub();
+                    uc = escolhaUC();
+                    tema = escolhaTema(uc);
+                    pub = escolhaPubVisiveis(uc, tema);
 
                     //Visualização do ficheiro.
                     //TODO Perguntar sobre isto na classe Curso.
@@ -287,8 +305,11 @@ public class Main {
 
                     opcao = 0;
                     break;
+                case 5:
+                    opcao = -1;
+                    break;
                 default:
-                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade dos ficheiros\n4. Voltar");
+                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }// fim switch
@@ -296,26 +317,58 @@ public class Main {
 
     } //fim menuProf
 
-    public static Publicacao escolhaPub() {
-        //Escolha da unidade curricular.
+    public static UC escolhaUC() {
         System.out.println("Escolha a localização do ficheiro:");
         engInf.printUCProf(userAtual);
+        System.out.println("0. Voltar ao menu anterior");
         int indexUC = in.nextInt();
         in.nextLine();
 
-        UC uc = engInf.getUCProfFromIndex(userAtual, indexUC);
+        if (indexUC == 0) {
+            menuProf();
+        }
 
-        //Escolha do tema.
+        return engInf.getUCProfFromIndex(userAtual, indexUC);
+    }
+
+    public static Tema escolhaTema(UC uc) {
         engInf.printTema(uc);
+        System.out.println("0. Voltar ao menu anterior");
         int indexTema = in.nextInt();
         in.nextLine();
 
-       Tema tema = engInf.getTemaFromIndex(uc, indexTema);
+        if (indexTema == 0) {
+            escolhaUC();
+            escolhaTema(uc);
+        }
 
-        //Escolha publicacao.
-        engInf.printPubs(uc, tema);
+        return engInf.getTemaFromIndex(uc, indexTema);
+    }
+
+    public static Publicacao escolhaPubVisiveis(UC uc, Tema tema) {
+        engInf.printPubsVisiveis(uc, tema);
+        System.out.println("0. Voltar ao menu anterior");
         int indexPub = in.nextInt();
         in.nextLine();
+
+        if (indexPub == 0) {
+            escolhaTema(uc);
+            escolhaPubVisiveis(uc, tema);
+        }
+
+        return engInf.getPubFromIndex(uc, tema, indexPub);
+    }
+
+    public static Publicacao escolhaPub(UC uc, Tema tema) {
+        engInf.printPubs(uc, tema);
+        System.out.println("0. Voltar ao menu anterior");
+        int indexPub = in.nextInt();
+        in.nextLine();
+
+        if (indexPub == 0) {
+            escolhaTema(uc);
+            escolhaPub(uc, tema);
+        }
 
         return engInf.getPubFromIndex(uc, tema, indexPub);
     }

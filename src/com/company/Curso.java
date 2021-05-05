@@ -1,6 +1,5 @@
 package com.company;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Curso {
@@ -50,11 +49,12 @@ public class Curso {
      * Verifica se as credenciais de login estão corretas.
      * @param nome Nome a confirmar.
      * @param pass Password a confirmar.
+     * @param tipo Tipo de Pessoa.
      * @return true se as credenciais forem confirmadas e false se não forem.
      */
-    public boolean checkLogin(String nome, String pass) {
+    public boolean checkLogin(String nome, String pass, String tipo) {
         for (Pessoa i : pessoas) {
-            if ((i.getNome()).equals(nome) && (i.getPass().equals(pass))) {
+            if (i.getNome().equals(nome) && i.getPass().equals(pass) && i.getClass().getName().equals(tipo)) {
                 return true;
             }
         }
@@ -69,7 +69,7 @@ public class Curso {
      */
     public Pessoa getUserAtual(String nome, String pass) {
         for (Pessoa i : pessoas) {
-            if ((i.getNome()).equals(nome) && (i.getPass().equals(pass))) {
+            if (i.getNome().equals(nome) && i.getPass().equals(pass)) {
                 return i;
             }
         }
@@ -157,15 +157,16 @@ public class Curso {
     }
 
     /**
-     * Imprime todas as publicacoes visiveis associadas a uma instância da classe Tema e da classe UC.
+     * Imprime as publicaaoes marcadas como visiveis no ArrayList publicacoes presente na instância da classe Tema associada à UC.
      * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
+     * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
      */
-    public void printUC(UC uc) {
-        uc.printUC();
+    public void printPubsVisiveis(UC uc, Tema tema) {
+        uc.printPubsVisiveis(tema);
     }
 
     /**
-     * Imprime todas as publicacoes independentemente da sua visibilidade.
+     * Imprime todas as publicaaoes no ArrayList publicacoes presente na instância da classe Tema associada à UC.
      * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
      * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
      */

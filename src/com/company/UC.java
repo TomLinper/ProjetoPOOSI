@@ -42,10 +42,16 @@ public class UC {
         }
     }
 
-    public void printPubs(Tema tema) {
+    public void printPubsVisiveis(Tema tema) {
         System.out.println("-------" + this.nomeUC + "-------");
         System.out.println("---" + tema.getNome() + "---");
         tema.printPubsVisiveis();
+    }
+
+    public void printPubs(Tema tema) {
+        System.out.println("-------" + this.nomeUC + "-------");
+        System.out.println("---" + tema.getNome() + "---");
+        tema.printPubs();
     }
 
     public Publicacao getPubFromIndex(Tema tema, int index) {
