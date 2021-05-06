@@ -192,7 +192,7 @@ public class Main {
      */
     public static void menuProf() {
 
-        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Voltar");
+        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagem\n6. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -306,10 +306,22 @@ public class Main {
                     opcao = 0;
                     break;
                 case 5:
+                	System.out.println("Qual o nome da pessoa a enviar a mensagem?");
+                	String nome = in.nextLine();
+                	
+                	System.out.println("Qual a mensagem?");
+                	String corpo = in.nextLine();
+                	
+                	today = LocalDate.now();
+                	
+                	Mensagem msg = new Mensagem(nome, today, corpo);
+                	
+                	engInf.sendMsg(nome, corpo, msg);
+                case 6:
                     opcao = -1;
                     break;
                 default:
-                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Voltar");
+                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagem\n6. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }// fim switch
