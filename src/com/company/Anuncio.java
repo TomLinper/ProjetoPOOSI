@@ -40,6 +40,16 @@ public class Anuncio extends Publicacao
     }
 
     @Override
+    public int getnPerguntas() {
+        return 0;
+    }
+
+    @Override
+    public void addPergunta(Pergunta pergunta) {
+
+    }
+
+    @Override
     public String getNome()
     {
         return null;
@@ -50,4 +60,6 @@ public class Anuncio extends Publicacao
     {
         return null;
     }
+
+
 }

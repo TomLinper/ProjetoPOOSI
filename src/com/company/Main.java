@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -272,7 +273,7 @@ public class Main
                     boolean visibilidade;
 
                     //Escolha do tipo de publicacao.
-                    System.out.println("1. Material\n2. Anuncio");
+                    System.out.println("1. Material\n2. Anuncio\n3. Quizz");
                     int aux = in.nextInt();
                     in.nextLine();
 
@@ -302,7 +303,7 @@ public class Main
                         String ext = in.nextLine();
 
                         nPub = new Material(userAtual.getNome(), today, ext, nome, visibilidade);
-                    } else {
+                    } else if (aux == 2) {
                         System.out.println("Qual o titulo do anuncio?");
                         String titulo = in.nextLine();
 
@@ -310,9 +311,47 @@ public class Main
                         String corpo = in.nextLine();
 
                         nPub = new Anuncio(userAtual.getNome(), today, visibilidade, titulo, corpo);
+                    } else if (aux == 3) {
+                        System.out.println("Qual o titulo do quizz?");
+                        String titulo = in.nextLine();
+
+                        System.out.println("Quantas perguntas irá ter o quizz?");
+                        int nPerguntas = in.nextInt();
+                        in.nextLine();
+
+                        nPub = new Quizz(userAtual.getNome(), today, visibilidade, titulo, nPerguntas);
+                    } else {
+                        System.out.println("Por favor insira o valor correspondente ao ficheiro que quer criar.");
+                        menuProf();
                     }
 
                     engInf.criarPub(uc, tema, nPub);
+
+                    //Criacao do quizz.
+                    if (aux == 3) {
+                        //Loop para processar perguntas.
+                        for (int i = 0; i < nPub.getnPerguntas(); i++) {
+                            System.out.println("Qual a " + (i+1) + "º pergunta?");
+                            String pergunta = in.nextLine();
+
+                            System.out.println("Quantas opcoes de resposta tem a " + (i+1) + "º pergunta?");
+                            int nOpcoes = in.nextInt();
+
+                            ArrayList<String> opcoes = new ArrayList<>(nOpcoes);
+
+                            //Loop para processar opcoes.
+                            for (int k = 0; k < nOpcoes; k++) {
+                                System.out.println("Qual a " + (k+1) + " opcao de resposta?");
+                                opcoes.add(in.nextLine());
+                            }
+
+                            System.out.println("Qual o indice da opcao correta?");
+                            int respCorreta = in.nextInt();
+                            in.nextLine();
+
+                            nPub.addPergunta(new Pergunta(pergunta, respCorreta, opcoes));
+                        }
+                    }
 
                     opcao = 0;
                     break;

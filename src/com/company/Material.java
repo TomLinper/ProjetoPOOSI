@@ -50,4 +50,16 @@ public class Material extends Publicacao
     {
         return null;
     }
+
+    @Override
+    public int getnPerguntas() {
+        return 0;
+    }
+
+    @Override
+    public void addPergunta(Pergunta pergunta) {
+
+    }
+
+
 }

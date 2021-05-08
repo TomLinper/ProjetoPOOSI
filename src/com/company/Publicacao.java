@@ -55,4 +55,8 @@ public abstract class Publicacao
     public abstract String getTitulo();
 
     public abstract String getCorpo();
+
+    public abstract int getnPerguntas();
+
+    public abstract void addPergunta(Pergunta pergunta);
 }
