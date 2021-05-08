@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public abstract class Pessoa {
+public abstract class Pessoa
+{
     // Variaveis de instancia.
     private String nome;
     private String mail;
@@ -26,7 +27,8 @@ public abstract class Pessoa {
      * @param contacto Numero de telemovel da pessoa.
      * @param pass Palavra passe para fazer login.
      */
-    public Pessoa(String nome, String mail, int contacto, String pass) {
+    public Pessoa(String nome, String mail, int contacto, String pass)
+    {
         this.nome = nome;
         this.mail = mail;
         this.contacto = contacto;
@@ -34,23 +36,28 @@ public abstract class Pessoa {
         this.mensagens = new ArrayList<>();
     }
 
-    public String getNome() {
+    public String getNome()
+    {
         return nome;
     }
 
-    public String getMail() {
+    public String getMail()
+    {
         return mail;
     }
 
-    public int getContacto() {
+    public int getContacto()
+    {
         return contacto;
     }
 
-    public String getPass() {
+    public String getPass()
+    {
         return pass;
     }
 
-    public static String getCurso() {
+    public static String getCurso()
+    {
         return curso;
     }
 
@@ -58,7 +65,8 @@ public abstract class Pessoa {
      * Adiciona um objeto da classe Mensagem ao ArrayList mensagens.
      * @param msg Objeto do tipo Mensagem a adicionar.
      */
-    public void sendMsg(Mensagem msg) {
+    public void sendMsg(Mensagem msg)
+    {
         mensagens.add(msg);
     }
 
@@ -67,7 +75,8 @@ public abstract class Pessoa {
      * @param index Indice da mensagem a ler.
      * @return o objeto do tipo Mensagem escolhido.
      */
-    public Mensagem getMsgFromIndex(int index) {
+    public Mensagem getMsgFromIndex(int index)
+    {
         ArrayList<Mensagem> nLidas = new ArrayList<>();
         for (int i = 0; i < mensagens.size(); i++) {
             if (!mensagens.get(i).isLida()) {
@@ -81,7 +90,8 @@ public abstract class Pessoa {
     /**
      * Metodo utilizado para ver as mensagens que ainda nao foram lidas.
      */
-    public void printMsg() {
+    public void printMsg()
+    {
         for (int i = 0; i < mensagens.size(); i++) {
             if (!mensagens.get(i).isLida()) {
                 System.out.println((i+1) + ". " + mensagens.get(i).getAssunto() + " - " + mensagens.get(i).getAutor());

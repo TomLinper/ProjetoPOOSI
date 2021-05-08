@@ -8,7 +8,8 @@ import java.time.LocalDate;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public class Anuncio extends Publicacao{
+public class Anuncio extends Publicacao
+{
 	// Variaveis de instancia.
     private String titulo;
     private String corpo;
@@ -21,27 +22,32 @@ public class Anuncio extends Publicacao{
      * @param titulo Titulo do anuncio.
      * @param corpo Corpo do anuncio.
      */
-    public Anuncio(String autor, LocalDate data, boolean visibilidade, String titulo, String corpo) {
+    public Anuncio(String autor, LocalDate data, boolean visibilidade, String titulo, String corpo)
+    {
         super(autor, data, visibilidade);
         this.titulo = titulo;
         this.corpo = corpo;
     }
 
-    public String getTitulo() {
+    public String getTitulo()
+    {
         return titulo;
     }
 
-    public String getCorpo() {
+    public String getCorpo()
+    {
         return corpo;
     }
 
     @Override
-    public String getNome() {
+    public String getNome()
+    {
         return null;
     }
 
     @Override
-    public String getExtensao() {
+    public String getExtensao()
+    {
         return null;
     }
 }

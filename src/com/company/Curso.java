@@ -240,4 +240,12 @@ public class Curso {
     public Mensagem getMsgFromIndex(Pessoa userAtual, int index) {
        return userAtual.getMsgFromIndex(index);
     }
+
+    /**
+     * Muda a visibilidade de uma publicacao
+     * @param pub Objeto Publicacao.
+     */
+    public void mudarVisibilidade(Publicacao pub) {
+        pub.setVisibilidade(!pub.isVisibilidade());
+    }
 }

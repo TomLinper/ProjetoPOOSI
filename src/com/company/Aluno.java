@@ -6,7 +6,8 @@ package com.company;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public class Aluno extends Pessoa{
+public class Aluno extends Pessoa
+{
     // Variaveis de instancia.
     private int numAluno;
 
@@ -18,12 +19,14 @@ public class Aluno extends Pessoa{
      * @param pass Password do aluno usada para efectuar login.
      * @param numAluno Numero do aluno.
      */
-    public Aluno(String nome, String mail, int contacto, String pass, int numAluno) {
+    public Aluno(String nome, String mail, int contacto, String pass, int numAluno)
+    {
         super(nome, mail, contacto, pass);
         this.numAluno = numAluno;
     }
 
-    public int getNumAluno() {
+    public int getNumAluno()
+    {
         return numAluno;
     }
 
@@ -31,7 +34,8 @@ public class Aluno extends Pessoa{
     public void printUC() { }
 
     @Override
-    public UC getUCFromIndex(int index) {
+    public UC getUCFromIndex(int index)
+    {
         return null;
     }
 

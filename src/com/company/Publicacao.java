@@ -8,7 +8,8 @@ import java.time.LocalDate;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public abstract class Publicacao {
+public abstract class Publicacao
+{
 	// Variaveis de instancia.
     private String autor;
     private LocalDate data;
@@ -20,25 +21,30 @@ public abstract class Publicacao {
      * @param data Data em que a publicacao foi criada.
      * @param visibilidade Variavel que controla se a publicacao e visivel ou nao para os alunos.
      */
-    public Publicacao(String autor, LocalDate data, boolean visibilidade) {
+    public Publicacao(String autor, LocalDate data, boolean visibilidade)
+    {
         this.autor = autor;
         this.data = data;
         this.visibilidade = visibilidade;
     }
 
-    public String getAutor() {
+    public String getAutor()
+    {
         return autor;
     }
 
-    public LocalDate getData() {
+    public LocalDate getData()
+    {
         return data;
     }
 
-    public boolean isVisibilidade() {
+    public boolean isVisibilidade()
+    {
         return visibilidade;
     }
 
-    public void setVisibilidade(boolean visibilidade) {
+    public void setVisibilidade(boolean visibilidade)
+    {
         this.visibilidade = visibilidade;
     }
 

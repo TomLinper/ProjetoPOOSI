@@ -8,7 +8,8 @@ import java.time.LocalDate;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public class Material extends Publicacao{
+public class Material extends Publicacao
+{
 	// Variaveis de instancia
     private String extensao;
     private String nome;
@@ -21,27 +22,32 @@ public class Material extends Publicacao{
      * @param nome O nome do ficheiro.
      * @param visibilidade Variavel que controla se o ficheiro e visivel ou nao para os alunos.
      */
-    public Material(String autor, LocalDate data, String extensao, String nome, boolean visibilidade) {
+    public Material(String autor, LocalDate data, String extensao, String nome, boolean visibilidade)
+    {
         super(autor, data, visibilidade);
         this.extensao = extensao;
         this.nome = nome;
     }
 
-    public String getExtensao() {
+    public String getExtensao()
+    {
         return extensao;
     }
 
-    @Override
-    public String getTitulo() {
-        return null;
-    }
-
-    @Override
-    public String getCorpo() {
-        return null;
-    }
-
-    public String getNome() {
+    public String getNome()
+    {
         return nome;
+    }
+
+    @Override
+    public String getTitulo()
+    {
+        return null;
+    }
+
+    @Override
+    public String getCorpo()
+    {
+        return null;
     }
 }

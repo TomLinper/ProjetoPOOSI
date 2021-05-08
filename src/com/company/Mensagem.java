@@ -8,7 +8,8 @@ import java.time.LocalDate;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public class Mensagem {
+public class Mensagem
+{
 	// Variaveis de instancia.
 	private String autor;
 	private String assunto;
@@ -23,7 +24,8 @@ public class Mensagem {
 	 * @param corpo Texto contido na mensagem.
 	 * @param data Data em que a mensagem foi criada.
 	 */
-	public Mensagem(String autor, String assunto, String corpo, LocalDate data) {
+	public Mensagem(String autor, String assunto, String corpo, LocalDate data)
+	{
 		this.autor = autor;
 		this.assunto = assunto;
 		this.corpo = corpo;
@@ -31,32 +33,39 @@ public class Mensagem {
 		this.lida = false;
 	}
 
-	public String getAutor() {
+	public String getAutor()
+	{
 		return autor;
 	}
 
-	public String getAssunto() {
+	public String getAssunto()
+	{
 		return assunto;
 	}
 
-	public String getCorpo() {
+	public String getCorpo()
+	{
 		return corpo;
 	}
 
-	public LocalDate getData() {
+	public LocalDate getData()
+	{
 		return data;
 	}
 
-	public boolean isLida() {
+	public boolean isLida()
+	{
 		return lida;
 	}
 
-	public void setLida(boolean lida) {
+	public void setLida(boolean lida)
+	{
 		this.lida = lida;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Autor: " + autor + "\nData: " + data + "\nAssunto: " + assunto + "\nCorpo: " + corpo;
 	}
 	

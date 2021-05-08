@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
  * @version 08/05/2021
  */
-public class UC {
+public class UC
+{
 	// Variaveis de instancia.
     private String nomeUC;
     private ArrayList<Tema> temas;
@@ -17,27 +18,30 @@ public class UC {
      * Construtor da classe UC.
      * @param nomeUC Nome da unidade curricular que estamos a criar.
      */
-    public UC(String nomeUC) {
+    public UC(String nomeUC)
+    {
         this.nomeUC = nomeUC;
         this.temas = new ArrayList<>();
     }
 
-    public String getNomeUC() {
+    public String getNomeUC()
+    {
         return nomeUC;
     }
 
     /**
-     * 
-     * @param nomeUC Nome da uc em que queremos criar temas.
      * Metodo utilizado para criar temas.
+     * @param nomeUC Nome da uc em que queremos criar temas.
      */
-    public void criarTema(String nomeUC) {
+    public void criarTema(String nomeUC)
+    {
         temas.add(new Tema(nomeUC));
     }
     /**
      * Metodo utilizado para imprimir conteudo que esta no tema.
      */
-    public void printTema() {
+    public void printTema()
+    {
         System.out.println("-------" + this.nomeUC + "-------");
         for (int i = 0; i < temas.size(); i++) {
             System.out.println((i+1) + ". " + temas.get(i).getNome());
@@ -49,7 +53,8 @@ public class UC {
      * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
      * @param nPub Instancia da classe Publicacao a adicionar ao ArrayList.
      */
-    public void criarPub(Tema tema, Publicacao nPub) {
+    public void criarPub(Tema tema, Publicacao nPub)
+    {
         tema.criarPub(nPub);
     }
 
@@ -58,26 +63,17 @@ public class UC {
      * @param index Indice do tema no ArrayList temas na classe UC.
      * @return A instancia da classe Tema associada ao indice.
      */
-    public Tema getTemaFromIndex(int index) {
+    public Tema getTemaFromIndex(int index)
+    {
         return temas.get(index-1);
-    }
-
-    /**
-     * Imprime todos os temas associados a uma instancia da classe.
-     */
-    public void printUC() {
-        System.out.println("---------" + this.nomeUC + "---------");
-        for (Tema t: temas) {
-            System.out.println("---" + t.getNome() + "---");
-            t.printPubsVisiveis();
-        }
     }
 
     /**
      * Imprime apenas as publicacoes marcadas como visiveis, num dado objeto da classe Tema.
      * @param tema Tema de onde serao impressas as publicacoes.
      */
-    public void printPubsVisiveis(Tema tema) {
+    public void printPubsVisiveis(Tema tema)
+    {
         System.out.println("-------" + this.nomeUC + "-------");
         System.out.println("---" + tema.getNome() + "---");
         tema.printPubsVisiveis();
@@ -87,7 +83,8 @@ public class UC {
      * Imprime todas as publicacoes num dado objeto da classe Tema.
      * @param tema Tema de onde serao impressas as publicacoes.
      */
-    public void printPubs(Tema tema) {
+    public void printPubs(Tema tema)
+    {
         System.out.println("-------" + this.nomeUC + "-------");
         System.out.println("---" + tema.getNome() + "---");
         tema.printPubs();
@@ -99,7 +96,8 @@ public class UC {
      * @param index Indice da publicacao no ArrayList publicacoes na classe Temas.
      * @return A instância da classe Publicacao associada ao indice.
      */
-    public Publicacao getPubFromIndex(Tema tema, int index) {
+    public Publicacao getPubFromIndex(Tema tema, int index)
+    {
         return tema.getPubFromIndex(index);
     }
 }

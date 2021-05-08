@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 import java.time.LocalDate;
 
-//TODO Verifica√ß√µes e exceptions
+//TODO Ver detalhes da pessoa
 //TODO Tabs nas classes
 
 /**
@@ -12,19 +12,22 @@ import java.time.LocalDate;
  * @author Carlos Mendes n∫42762 / Ivo Gomes n∫43573 / Tomas Pereira n∫43133
  * @version 08/05/2021
  */
-public class Main {
+public class Main
+{
     private static Scanner in = new Scanner(System.in);
     private static Curso engInf = new Curso(100);
     private static Pessoa userAtual = null;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         loginPage();
     }
 
     /**
      * Pagina inicial onde e possivel registar e fazer login.
      */
-    private static void loginPage() {
+    private static void loginPage()
+    {
         System.out.println("1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
         int opcao = in.nextInt();
         in.nextLine();
@@ -61,7 +64,8 @@ public class Main {
     /**
      * Menu onde ir· ocorrer o registo dos utilizadores.
      */
-    private static void registar() {
+    private static void registar()
+    {
         System.out.println("Escolha a opcao com que se identifica:\n1. Aluno\n2. Professor\n3. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
@@ -134,7 +138,8 @@ public class Main {
      * Pagina do login.
      * @param tipo Tipo de pessoa.
      */
-    private static void login(String tipo) {
+    private static void login(String tipo)
+    {
         //Obtencao dos dados de login.
         System.out.println("Insira o seu nome...");
         String nome = in.nextLine();
@@ -162,7 +167,8 @@ public class Main {
     /**
      * Pagina de registo de unidades curriculares.
      */
-    public static void registarUC() {
+    public static void registarUC()
+    {
         System.out.println("Qual o nome da unidade curricular a criar?");
         String nomeUC = in.nextLine();
 
@@ -172,7 +178,8 @@ public class Main {
     /**
      * Menu por onde o aluno tem acesso ‡ plataforma.
      */
-    public static void menuAluno() {
+    public static void menuAluno()
+    {
         System.out.println("1. Ver uma publicacao \n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
@@ -251,7 +258,8 @@ public class Main {
     /**
      * Menu por onde o professor tem acesso ‡ plataforma.
      */
-    public static void menuProf() {
+    public static void menuProf()
+    {
 
         System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");
         int opcao = in.nextInt();
@@ -339,7 +347,7 @@ public class Main {
                     in.nextLine();
 
                     if (aux == 1) {
-                        pub.setVisibilidade(!pub.isVisibilidade());
+                        engInf.mudarVisibilidade(pub);
                     } else {
                         menuProf();
                     }
@@ -399,7 +407,7 @@ public class Main {
                     if (index != 0){
                         Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
                         msg.setLida(true);
-                        System.out.println(msg.toString());
+                        System.out.println(msg);
                     }
 
                     menuProf();
@@ -423,7 +431,8 @@ public class Main {
      * Imprime uma lista de UCs e permite selecionar uma.
      * @return A instancia da classe UC escolhida.
      */
-    public static UC escolhaUC() {
+    public static UC escolhaUC()
+    {
         System.out.println("Escolha a localizacao do ficheiro:");
         engInf.printUCProf(userAtual);
         System.out.println("0. Voltar ao menu anterior");
@@ -442,7 +451,8 @@ public class Main {
      * @param uc Objeto da classe UC onde estara o Tema.
      * @return A instancia da classe Tema escolhida.
      */
-    public static Tema escolhaTema(UC uc) {
+    public static Tema escolhaTema(UC uc)
+    {
         engInf.printTema(uc);
         System.out.println("0. Voltar ao menu anterior");
         int indexTema = in.nextInt();
@@ -462,7 +472,8 @@ public class Main {
      * @param tema Objeto da classe Tema onde estara a Publicacao.
      * @return A instancia da classe Tema escolhida.
      */
-    public static Publicacao escolhaPubVisiveis(UC uc, Tema tema) {
+    public static Publicacao escolhaPubVisiveis(UC uc, Tema tema)
+    {
         engInf.printPubsVisiveis(uc, tema);
         System.out.println("0. Voltar ao menu anterior");
         int indexPub = in.nextInt();
@@ -482,7 +493,8 @@ public class Main {
      * @param tema Objeto da classe Tema onde estara a Publicacao.
      * @return A instancia da classe Tema escolhida.
      */
-    public static Publicacao escolhaPub(UC uc, Tema tema) {
+    public static Publicacao escolhaPub(UC uc, Tema tema)
+    {
         engInf.printPubs(uc, tema);
         System.out.println("0. Voltar ao menu anterior");
         int indexPub = in.nextInt();
