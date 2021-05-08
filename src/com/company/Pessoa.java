@@ -67,9 +67,7 @@ public abstract class Pessoa {
             }
         }
 
-        Mensagem msg = nLidas.get(index-1);
-
-        return msg;
+        return nLidas.get(index-1);
     }
     /**
      * metodo utilizado para ver as mensagens que ainda nao foram lidas

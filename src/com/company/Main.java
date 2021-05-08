@@ -161,8 +161,9 @@ public class Main {
      * Menu por onde o aluno tem acesso à plataforma.
      */
     public static void menuAluno() {
-        System.out.println("1. Ver uma publicacao \n2. Mandar mensagem a um Professor");
+        System.out.println("1. Ver uma publicacao \n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Voltar");
         int opcao = in.nextInt();
+        in.nextLine();
 
         while (opcao != -1) {
             switch (opcao) {
@@ -196,6 +197,7 @@ public class Main {
 
                     engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
                     System.out.println("Mensagem enviada para " + dest + ".");
+                    menuAluno();
 
                     opcao = 0;
                     break;
@@ -203,16 +205,23 @@ public class Main {
                     System.out.println("----CAIXA DE ENTRADA----");
                     System.out.println("Escolha a mensagem:");
                     userAtual.printMsg();
+                    System.out.println("0. Voltar");
                     int index = in.nextInt();
+                    in.nextLine();
 
-                    Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                    if (index != 0){
+                        Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                        msg.setLida(true);
+                        System.out.println(msg.toString());
+                    }
 
-                    System.out.println(msg.toString());
+                    menuAluno();
 
                     opcao = 0;
                     break;
                 case 4:
                     opcao = -1;
+                    loginPage();
                     break;
             }
         }
@@ -324,7 +333,7 @@ public class Main {
                     //Escolha da publicacao.
                     uc = escolhaUC();
                     tema = escolhaTema(uc);
-                    pub = escolhaPubVisiveis(uc, tema);
+                    pub = escolhaPub(uc, tema);
 
                     //Visualização do ficheiro.
                     //TODO Perguntar sobre isto na classe Curso.
@@ -351,22 +360,30 @@ public class Main {
                 	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
                     System.out.println("Mensagem enviada para " + dest + ".");
 
+                    menuProf();
+
                 	opcao = 0;
                 	break;
                 case 6:
                     System.out.println("----CAIXA DE ENTRADA----");
                     System.out.println("Escolha a mensagem:");
                     userAtual.printMsg();
+                    System.out.println("0. Voltar");
                     int index = in.nextInt();
 
-                    Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                    if (index != 0){
+                        Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                        msg.setLida(true);
+                        System.out.println(msg.toString());
+                    }
 
-                    System.out.println(msg.toString());
+                    menuProf();
 
                     opcao = 0;
                     break;
                 case 7:
                     opcao = -1;
+                    loginPage();
                     break;
                 default:
                     System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");

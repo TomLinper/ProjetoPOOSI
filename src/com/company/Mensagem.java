@@ -44,6 +44,10 @@ public class Mensagem {
 		return lida;
 	}
 
+	public void setLida(boolean lida) {
+		this.lida = lida;
+	}
+
 	@Override
 	public String toString() {
 		return "Autor: " + autor + "\nData: " + data + "\nAssunto: " + assunto + "\nCorpo: " + corpo;
