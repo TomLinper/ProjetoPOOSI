@@ -2,16 +2,23 @@ package com.company;
 
 import java.time.LocalDate;
 
+/**
+ * Classe abstrata que representa uma publicacao.
+ *
+ * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
+ * @version 08/05/2021
+ */
 public abstract class Publicacao {
-	//variaveis de instancia
+	// Variaveis de instancia.
     private String autor;
     private LocalDate data;
     private boolean visibilidade;
+
     /**
-     * 
-     * @param autor: Autor da publicacao
-     * @param data: Data em que a publicacao foi criada
-     * @param visibilidade : variavel que controla se a publicacao e visivel ou nao para os alunos
+     * Construtor da classe Publicacao.
+     * @param autor Autor da publicacao.
+     * @param data Data em que a publicacao foi criada.
+     * @param visibilidade Variavel que controla se a publicacao e visivel ou nao para os alunos.
      */
     public Publicacao(String autor, LocalDate data, boolean visibilidade) {
         this.autor = autor;

@@ -2,8 +2,14 @@ package com.company;
 
 import java.time.LocalDate;
 
+/**
+ * Classe que representa uma mensagem.
+ *
+ * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
+ * @version 08/05/2021
+ */
 public class Mensagem {
-	//Variaveis de instancia
+	// Variaveis de instancia.
 	private String autor;
 	private String assunto;
 	private String corpo;
@@ -11,10 +17,11 @@ public class Mensagem {
 	private boolean lida;
 
 	/**
-	 * @param autor: Autor da mensagem
-	 * @param assunto: Assunto da mensagem
-	 * @param corpo: Texto contido na mensagem
-	 * @param data: Data em que a mensagem foi criada
+	 * Construtor da classe Mensagem.
+	 * @param autor Autor da mensagem.
+	 * @param assunto Assunto da mensagem.
+	 * @param corpo Texto contido na mensagem.
+	 * @param data Data em que a mensagem foi criada.
 	 */
 	public Mensagem(String autor, String assunto, String corpo, LocalDate data) {
 		this.autor = autor;

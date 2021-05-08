@@ -2,18 +2,31 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Classe usada para gerir o curso e para estabelecer ligacao entre a classe Main e as restantes classes.
+ *
+ * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
+ * @version 08/05/2021
+ */
 public class Curso {
+    //Variaveis de instancia.
     private ArrayList<Pessoa> pessoas;
     private ArrayList<UC> uCurriculares;
-    private String nomeCurso;
-    private int numParticipantes;
+    private int numMaxParticipantes;
+    private int nPartAtual;
 
+    //Variaveis de classe
+    private static String nomeCurso = "Engenharia Informatica";
 
-    public Curso(String nomeCurso, int numParticipantes) {
-        this.nomeCurso = nomeCurso;
-        this.numParticipantes = numParticipantes;
-        this.uCurriculares = new ArrayList<>(numParticipantes);
-        this.pessoas = new ArrayList<>(numParticipantes);
+    /**
+     * Construtor da classe Curso.
+     * @param numMaxParticipantes Numero de participantes do curso.
+     */
+    public Curso(int numMaxParticipantes) {
+        this.numMaxParticipantes = numMaxParticipantes;
+        this.uCurriculares = new ArrayList<>();
+        this.pessoas = new ArrayList<>(numMaxParticipantes);
+        this.nPartAtual = 0;
     }
 
     public String getNomeCurso() {
@@ -21,20 +34,25 @@ public class Curso {
     }
 
     public int getNumParticipantes() {
-        return numParticipantes;
+        return numMaxParticipantes;
     }
 
     /**
-     * Método usado para criar uma nova instância da classe Aluno e adiciona-la ao array alunos.
-     * @param nPessoa Instância da classe pessoa a adicionar ao ArrayList pessoas.
+     * Metodo usado para adicionar um novo objeto da classe Aluno ao array alunos.
+     * @param nPessoa Objeto da classe pessoa a adicionar ao ArrayList pessoas.
      */
     public void addPessoa(Pessoa nPessoa) {
-        pessoas.add(nPessoa);
+        if (nPartAtual < 100) {
+            pessoas.add(nPessoa);
+            nPartAtual++;
+        } else {
+            System.out.println("Numero maximo de participantes no curso foi atingido.");
+        }
     }
 
     /**
-     * Verifica se o numero de aluno já existe.
-     * @param numAluno Número de aluno.
+     * Verifica se o numero de aluno ja existe.
+     * @param numAluno Numero de aluno.
      */
     public boolean checkNum(int numAluno) {
         for (Pessoa p : pessoas) {
@@ -46,11 +64,11 @@ public class Curso {
     }
 
     /**
-     * Verifica se as credenciais de login estão corretas.
+     * Verifica se as credenciais de login estao corretas.
      * @param nome Nome a confirmar.
      * @param pass Password a confirmar.
      * @param tipo Tipo de Pessoa.
-     * @return true se as credenciais forem confirmadas e false se não forem.
+     * @return true se as credenciais forem confirmadas e false se nao forem.
      */
     public boolean checkLogin(String nome, String pass, String tipo) {
         for (Pessoa i : pessoas) {
@@ -62,10 +80,10 @@ public class Curso {
     }
 
     /**
-     * Procura o nome e a password no ArrayList pessoas e retorna a instância associada, caso encontre
+     * Procura o nome e a password no ArrayList pessoas e retorna o objeto o, caso encontre.
      * @param nome Nome de utilizador.
      * @param pass Password do utilizador.
-     * @return A instância da classe Pessoa associados aos dados, caso encontre correspondência. Caso não encontre, retorna null.
+     * @return O objeto da classe Pessoa associados aos dados, caso encontre correspondencia. Caso nao encontre, retorna null.
      */
     public Pessoa getUserAtual(String nome, String pass) {
         for (Pessoa i : pessoas) {
@@ -77,7 +95,7 @@ public class Curso {
     }
     
     /**
-     * Adiciona uma instância da classe UC ao array uCurriculares.
+     * Adiciona um objeto da classe UC ao array uCurriculares.
      * @param nomeUC Nome da unidade curricular.
      */
     public void addUC(String nomeUC) {
@@ -85,9 +103,9 @@ public class Curso {
     }
 
     /**
-     * Adiciona uma unidade curricular ao ArrayList uCurriculares presente na instância da classe Pessoa.
-     * @param prof Instância da classe pessoa.
-     * @param index Índice da unidade curricular no ArrayList uCurriculares.
+     * Adiciona uma unidade curricular ao ArrayList uCurriculares presente numa dada instancia da classe Pessoa.
+     * @param prof Objeto da classe pessoa.
+     * @param index Indice da unidade curricular no ArrayList uCurriculares.
      */
     public void addUCProf(Pessoa prof, int index) {
         prof.addUC(uCurriculares.get(index-1));
@@ -111,18 +129,18 @@ public class Curso {
     }
 
     /**
-     * Retorna a instância da classe UC associada ao index na classe Professor.
-     * @param userAtual Instância da classe Pessoa.
-     * @param index Índice da unidade curricular no ArrayList uCurriculares na classe Professor.
-     * @return A instância da classe UC associada ao indice.
+     * Retorna o objeto da classe UC associada ao index na classe Professor.
+     * @param userAtual Instancia da classe Pessoa a adicionar ao ArrayList.
+     * @param index Indice da unidade curricular no ArrayList uCurriculares na classe Professor.
+     * @return O objeto da classe UC associada ao indice.
      */
     public UC getUCProfFromIndex(Pessoa userAtual, int index) {
         return userAtual.getUCFromIndex(index);
     }
 
     /**
-     * Cria e adiciona uma instância da classe Tema ao ArrayList temas presente na classe UC.
-     * @param uc Instância da unidade curricular.
+     * Adiciona um objeto da classe Tema ao ArrayList temas presente na classe UC.
+     * @param uc Instancia da unidade curricular a adicionar ao ArrayList.
      * @param nomeTema Nome do tema a criar.
      */
     public void criarTema(UC uc, String nomeTema) {
@@ -130,55 +148,55 @@ public class Curso {
     }
 
     /**
-     * Imprime os temas associados com uma dada instância da classe UC.
+     * Imprime os temas associados com uma dada instancia da classe UC.
      */
     public void printTema(UC uc) {
         uc.printTema();
     }
 
     /**
-     * Adiciona uma instância da classe Publicacao ao ArrayList publicacoes presente na classe Tema.
-     * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
-     * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
-     * @param nPub Instância da classe Publicacao a adicionar ao ArrayList.
+     * Adiciona um objeto da classe Publicacao ao ArrayList publicacoes presente na classe Tema.
+     * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
+     * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
+     * @param nPub Instancia da classe Publicacao a adicionar ao ArrayList.
      */
     public void criarPub(UC uc, Tema tema, Publicacao nPub) {
         uc.criarPub(tema, nPub);
     }
 
     /**
-     * Retorna a instância da classe Tema associada ao index na classe UC.
-     * @param uc Instância da classe UC.
-     * @param index Índice do tema no ArrayList temas na classe UC.
-     * @return A instância da classe Tema associada ao indice.
+     * Retorna a instancia da classe Tema associada ao index na classe UC.
+     * @param uc Instancia da classe UC.
+     * @param index Indice do tema no ArrayList temas na classe UC.
+     * @return A instancia da classe Tema associada ao indice.
      */
     public Tema getTemaFromIndex(UC uc, int index) {
         return uc.getTemaFromIndex(index);
     }
 
     /**
-     * Imprime as publicaaoes marcadas como visiveis no ArrayList publicacoes presente na instância da classe Tema associada à UC.
-     * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
-     * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
+     * Imprime as publicaaoes marcadas como visiveis no ArrayList publicacoes presente na instância da classe Tema associada a UC.
+     * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
+     * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
      */
     public void printPubsVisiveis(UC uc, Tema tema) {
         uc.printPubsVisiveis(tema);
     }
 
     /**
-     * Imprime todas as publicaaoes no ArrayList publicacoes presente na instância da classe Tema associada à UC.
-     * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
-     * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
+     * Imprime todas as publicaaoes no ArrayList publicacoes presente na instancia da classe Tema associada a UC.
+     * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
+     * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
      */
     public void printPubs(UC uc, Tema tema) {
         uc.printPubs(tema);
     }
 
     /**
-     *
-     * @param uc Instância da classe UC onde estão localizados os temas e publicacoes.
-     * @param tema Instância da classe Tema onde estão localizadas as publicacoes.
-     * @param index Índice da publicacao no ArrayList publicacoes na classe Temas.
+     * Retorna a instancia da classe Publicacao associada ao index na classe Tema.
+     * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
+     * @param tema Instancia da classe Tema onde estao localizadas as publicacoes.
+     * @param index Indice da publicacao no ArrayList publicacoes na classe Temas.
      * @return A instância da classe Publicacao associada ao indice.
      */
     public Publicacao getPubFromIndex(UC uc, Tema tema, int index) {
@@ -200,9 +218,9 @@ public class Curso {
     }
 
     /**
-     *
-     * @param msg
-     * @param dest
+     * Adiciona um objeto do tipo Mensagem ao ArrayList mensagens presente numa dada instancia da classe Pessoa.
+     * @param msg Objeto do tipo Mensagem.
+     * @param dest Nome do destinatario (Nome a procurar no ArrayList pessoas).
      */
     public void sendMsg(Mensagem msg, String dest) {
         Pessoa destP = searchPessoa(dest);
@@ -213,7 +231,13 @@ public class Curso {
         }
     }
 
-    public Mensagem getMsgNLidas(Pessoa userAtual, int index) {
-       return userAtual.getMsgNLidas(index);
+    /**
+     * Imprime todas as mensagens nao lidas presentes no ArrayList mensagens.
+     * @param userAtual Instancia da classe Pessoa onde procurar as mensagens.
+     * @param index Indice da mensagem a ler.
+     * @return O objeto do tipo Mensagem escolhido.
+     */
+    public Mensagem getMsgFromIndex(Pessoa userAtual, int index) {
+       return userAtual.getMsgFromIndex(index);
     }
 }

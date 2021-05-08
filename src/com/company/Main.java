@@ -1,21 +1,29 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
 //TODO VerificaÃ§Ãµes e exceptions
 //TODO Tabs nas classes
 
+/**
+ * Classe onde ocorre a interacao entre o utilizador e o sistema.
+ *
+ * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
+ * @version 08/05/2021
+ */
 public class Main {
     private static Scanner in = new Scanner(System.in);
-    private static Curso engInf = new Curso("Engenharia Informatica", 100);
+    private static Curso engInf = new Curso(100);
     private static Pessoa userAtual = null;
 
     public static void main(String[] args) {
         loginPage();
     }
 
+    /**
+     * Pagina inicial onde e possivel registar e fazer login.
+     */
     private static void loginPage() {
         System.out.println("1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
         int opcao = in.nextInt();
@@ -54,13 +62,12 @@ public class Main {
      * Menu onde irá ocorrer o registo dos utilizadores.
      */
     private static void registar() {
-        int eI = 0;
-
-        System.out.println("Escolha a opÃ§Ã£o com que se identifica:\n1. Aluno\n2. Professor\n3. Voltar");
+        System.out.println("Escolha a opcao com que se identifica:\n1. Aluno\n2. Professor\n3. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
         if (opcao == 1 || opcao == 2) {
+            //Variaveis para a super-classe.
             System.out.println("Qual o seu nome?");
             String nome = in.nextLine();
 
@@ -74,6 +81,7 @@ public class Main {
             System.out.println("Qual o seu email?");
             String mail = in.nextLine();
 
+            //Variaveis para as sub-classes (1. Aluno / 2. Professor).
             if (opcao == 1) {
                 //Criar e verificar número de aluno.
                 int numAluno = (int) (Math.random() * 100000);
@@ -83,7 +91,7 @@ public class Main {
 
                 System.out.println("O seu numero de aluno e " + numAluno + ".");
 
-                //Adicionar professor ao ArrayList pessoas.
+                //Adicionar aluno ao ArrayList pessoas.
                 engInf.addPessoa(new Aluno(nome, mail, contacto, pass, numAluno));
                 System.out.println("Aluno registado com sucesso!");
 
@@ -120,22 +128,24 @@ public class Main {
             System.out.println("Opcao inexistente. Por favor escolha uma das opcoes abaixo.");
             registar();
         }
-    }
+    } //fim registar
 
     /**
      * Pagina do login.
-     * @param tipo Tipo de pessoa. Aluno = 1 / Professor = 2
+     * @param tipo Tipo de pessoa.
      */
     private static void login(String tipo) {
+        //Obtencao dos dados de login.
         System.out.println("Insira o seu nome...");
         String nome = in.nextLine();
 
         System.out.println("Insira a sua password...");
         String pass = in.nextLine();
 
+        //Confirmacao dos dados e redirecionamento para o menu correspondente ao tipo de pessoa.
         if (engInf.checkLogin(nome, pass, tipo)) {
             System.out.println("Bem-vindo " + nome);
-            userAtual = engInf.getUserAtual(nome, pass);
+            userAtual = engInf.getUserAtual(nome, pass); //Obtencao do user atual.
 
             if (tipo.equals("com.company.Aluno")) {
                 menuAluno();
@@ -147,15 +157,17 @@ public class Main {
             System.out.println("Credenciais incorretas. Por favor tente novamente.");
             loginPage();
         }
-    }// fim login
+    }//fim login
 
-
+    /**
+     * Pagina de registo de unidades curriculares.
+     */
     public static void registarUC() {
         System.out.println("Qual o nome da unidade curricular a criar?");
         String nomeUC = in.nextLine();
 
         engInf.addUC(nomeUC);
-    }// fim registarUC
+    }//fim registarUC
 
     /**
      * Menu por onde o aluno tem acesso à plataforma.
@@ -168,22 +180,24 @@ public class Main {
         while (opcao != -1) {
             switch (opcao) {
                 case 1:
-                    //Escolha da publicacao
+                    //Escolha da publicacao.
                     UC uc = escolhaUC();
                     Tema tema = escolhaTema(uc);
                     Publicacao pub = escolhaPubVisiveis(uc, tema);
 
                     //Visualização do ficheiro.
-                    //TODO Perguntar sobre isto na classe Curso.
-                    //TODO Adicionar Material.
                     if (pub.getClass().getName().equals("com.company.Anuncio")) {
                         System.out.println("-------" + pub.getTitulo() + "-------");
                         System.out.println(pub.getCorpo());
+                    } else {
+                        System.out.println("-------" + pub.getNome() + "-------");
+                        System.out.println("\nTipo: " + pub.getExtensao() + "\nData: " + pub.getData() + "\nAutor: " + pub.getAutor());
                     }
 
                     opcao = 0;
                     break;
                 case 2:
+                    //Obtencao de dados.
                     System.out.println("Qual o nome da pessoa a enviar a mensagem?");
                     String dest = in.nextLine();
 
@@ -195,22 +209,28 @@ public class Main {
 
                     LocalDate today = LocalDate.now();
 
+                    //Criacao de um objeto do tipo Mensagem e sua adicao ao ArrayList mensagens.
                     engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
                     System.out.println("Mensagem enviada para " + dest + ".");
+
                     menuAluno();
 
                     opcao = 0;
                     break;
                 case 3:
+                    //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
                     System.out.println("----CAIXA DE ENTRADA----");
                     System.out.println("Escolha a mensagem:");
                     userAtual.printMsg();
                     System.out.println("0. Voltar");
+
+                    //Escolha da mensagem a visualizar.
                     int index = in.nextInt();
                     in.nextLine();
 
                     if (index != 0){
-                        Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                        //Obtencao e impressao da mensagem.
+                        Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
                         msg.setLida(true);
                         System.out.println(msg.toString());
                     }
@@ -223,9 +243,10 @@ public class Main {
                     opcao = -1;
                     loginPage();
                     break;
-            }
-        }
-    }
+            }//fim switch.
+        }//fim while.
+
+    }//fim menuAluno.
 
     /**
      * Menu por onde o professor tem acesso à plataforma.
@@ -260,10 +281,8 @@ public class Main {
                         visibilidade = false;
                     }
 
-                    //Escolha da unidade curricular.
-                    UC uc = escolhaUC();
-
                     //Escolha do tema.
+                    UC uc = escolhaUC();
                     Tema tema = escolhaTema(uc);
 
                     //Criação da publicacao.
@@ -276,7 +295,7 @@ public class Main {
 
                         nPub = new Material(userAtual.getNome(), today, ext, nome, visibilidade);
                     } else {
-                        System.out.println("Qual o título do anuncio?");
+                        System.out.println("Qual o titulo do anuncio?");
                         String titulo = in.nextLine();
 
                         System.out.println("Qual o corpo do anuncio?");
@@ -290,13 +309,12 @@ public class Main {
                     opcao = 0;
                     break;
                 case 2:
-                    //Escolha da unidade curricular.
+                    //Obtencao de dados.
                     System.out.println("A que disciplina quer adicionar o tema?");
                     engInf.printUCProf(userAtual);
                     aux = in.nextInt();
                     in.nextLine();
 
-                    //Escolha do tema.
                     System.out.println("Qual o nome do tema?");
                     String nomeTema = in.nextLine();
 
@@ -313,14 +331,13 @@ public class Main {
 
                     //Alteração da visibilidade do ficheiro.
                     if (pub.isVisibilidade()) {
-                        System.out.println("Este ficheiro encontra-se visível. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
+                        System.out.println("Este ficheiro encontra-se visivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
                     } else {
-                        System.out.println("Este ficheiro encontra-se invisível. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
+                        System.out.println("Este ficheiro encontra-se invisivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
                     }
                     aux = in.nextInt();
                     in.nextLine();
 
-                    //TODO Perguntar sobre isto na classe Curso.
                     if (aux == 1) {
                         pub.setVisibilidade(!pub.isVisibilidade());
                     } else {
@@ -336,16 +353,18 @@ public class Main {
                     pub = escolhaPub(uc, tema);
 
                     //Visualização do ficheiro.
-                    //TODO Perguntar sobre isto na classe Curso.
-                    //TODO Adicionar Material.
                     if (pub.getClass().getName().equals("com.company.Anuncio")) {
                         System.out.println("-------" + pub.getTitulo() + "-------");
                         System.out.println(pub.getCorpo());
+                    } else {
+                        System.out.println("-------" + pub.getNome() + "-------");
+                        System.out.println("\nTipo: " + pub.getExtensao() + "\nData: " + pub.getData() + "\nAutor: " + pub.getAutor());
                     }
 
                     opcao = 0;
                     break;
                 case 5:
+                    //Obtencao de dados.
                 	System.out.println("Qual o nome da pessoa a enviar a mensagem?");
                 	String dest = in.nextLine();
 
@@ -356,7 +375,8 @@ public class Main {
                 	String corpo = in.nextLine();
                 	
                 	today = LocalDate.now();
-                	
+
+                    //Criacao de um objeto do tipo Mensagem e sua adicao ao ArrayList mensagens.
                 	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
                     System.out.println("Mensagem enviada para " + dest + ".");
 
@@ -365,14 +385,19 @@ public class Main {
                 	opcao = 0;
                 	break;
                 case 6:
+                    //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
                     System.out.println("----CAIXA DE ENTRADA----");
                     System.out.println("Escolha a mensagem:");
                     userAtual.printMsg();
                     System.out.println("0. Voltar");
-                    int index = in.nextInt();
 
+                    //Escolha da mensagem a visualizar.
+                    int index = in.nextInt();
+                    in.nextLine();
+
+                    //Obtencao e impressao da mensagem.
                     if (index != 0){
-                        Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+                        Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
                         msg.setLida(true);
                         System.out.println(msg.toString());
                     }
@@ -394,8 +419,12 @@ public class Main {
 
     } //fim menuProf
 
+    /**
+     * Imprime uma lista de UCs e permite selecionar uma.
+     * @return A instancia da classe UC escolhida.
+     */
     public static UC escolhaUC() {
-        System.out.println("Escolha a localização do ficheiro:");
+        System.out.println("Escolha a localizacao do ficheiro:");
         engInf.printUCProf(userAtual);
         System.out.println("0. Voltar ao menu anterior");
         int indexUC = in.nextInt();
@@ -406,8 +435,13 @@ public class Main {
         }
 
         return engInf.getUCProfFromIndex(userAtual, indexUC);
-    }
+    }//fim escolhaUC
 
+    /**
+     * Imprime uma lista de Temas e permite selecionar um.
+     * @param uc Objeto da classe UC onde estara o Tema.
+     * @return A instancia da classe Tema escolhida.
+     */
     public static Tema escolhaTema(UC uc) {
         engInf.printTema(uc);
         System.out.println("0. Voltar ao menu anterior");
@@ -420,8 +454,14 @@ public class Main {
         }
 
         return engInf.getTemaFromIndex(uc, indexTema);
-    }
+    }//fim escolhaTema
 
+    /**
+     * Imprime uma lista de publicacaoes visiveis e permite selecionar uma.
+     * @param uc Objeto da classe UC onde estara o Tema.
+     * @param tema Objeto da classe Tema onde estara a Publicacao.
+     * @return A instancia da classe Tema escolhida.
+     */
     public static Publicacao escolhaPubVisiveis(UC uc, Tema tema) {
         engInf.printPubsVisiveis(uc, tema);
         System.out.println("0. Voltar ao menu anterior");
@@ -434,8 +474,14 @@ public class Main {
         }
 
         return engInf.getPubFromIndex(uc, tema, indexPub);
-    }
+    }//fim escolhaPubVisiveis
 
+    /**
+     * Imprime uma lista de todas as publicacaoes e permite selecionar uma.
+     * @param uc Objeto da classe UC onde estara o Tema.
+     * @param tema Objeto da classe Tema onde estara a Publicacao.
+     * @return A instancia da classe Tema escolhida.
+     */
     public static Publicacao escolhaPub(UC uc, Tema tema) {
         engInf.printPubs(uc, tema);
         System.out.println("0. Voltar ao menu anterior");
@@ -448,6 +494,6 @@ public class Main {
         }
 
         return engInf.getPubFromIndex(uc, tema, indexPub);
-    }
+    }//fim escolhaPub
 
 }//fim Main

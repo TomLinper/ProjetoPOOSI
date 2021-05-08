@@ -2,10 +2,21 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Classe que representa um tema.
+ *
+ * @author Carlos Mendes nº42762 / Ivo Gomes nº43573 / Tomas Pereira nº43133
+ * @version 08/05/2021
+ */
 public class Tema {
+	// Variaveis de instancia
 	private ArrayList<Publicacao> publicacoes;
 	private String nome;
-	
+
+	/**
+	 * Construtor da classe Tema.
+	 * @param nome Nome do tema.
+	 */
 	public Tema(String nome) {
 		this.nome = nome;
 		this.publicacoes = new ArrayList<>();
@@ -53,6 +64,11 @@ public class Tema {
 		}
 	}
 
+	/**
+	 * Retorna a instancia da classe Publicacao associada ao index na classe Tema.
+	 * @param index Indice da publicacao no ArrayList publicacoes na classe Temas.
+	 * @return A instância da classe Publicacao associada ao indice.
+	 */
 	public Publicacao getPubFromIndex(int index) {
 		return publicacoes.get(index-1);
 	}
