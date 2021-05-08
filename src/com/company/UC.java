@@ -3,9 +3,12 @@ package com.company;
 import java.util.ArrayList;
 
 public class UC {
+	//variaveis de instancia
     private String nomeUC;
     private ArrayList<Tema> temas;
-
+    /**
+     * @param nomeUC: Nome da unidade curricular que estamos a criar
+     */
     public UC(String nomeUC) {
         this.nomeUC = nomeUC;
         this.temas = new ArrayList<>();
@@ -14,11 +17,17 @@ public class UC {
     public String getNomeUC() {
         return nomeUC;
     }
-
+    /**
+     * 
+     * @param nomeUC:Nome da uc em que queremos criar temas
+     * metodo utilizado para criar temas
+     */
     public void criarTema(String nomeUC) {
         temas.add(new Tema(nomeUC));
     }
-
+    /**
+     * metodo utilizado para imprimir conteudo que esta no tema
+     */
     public void printTema() {
         System.out.println("-------" + this.nomeUC + "-------");
         for (int i = 0; i < temas.size(); i++) {

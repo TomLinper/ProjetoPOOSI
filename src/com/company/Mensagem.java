@@ -3,6 +3,7 @@ package com.company;
 import java.time.LocalDate;
 
 public class Mensagem {
+	//Variaveis de instancia
 	private String autor;
 	private String assunto;
 	private String corpo;
@@ -10,10 +11,10 @@ public class Mensagem {
 	private boolean lida;
 
 	/**
-	 * @param autor
-	 * @param assunto
-	 * @param corpo
-	 * @param data
+	 * @param autor: Autor da mensagem
+	 * @param assunto: Assunto da mensagem
+	 * @param corpo: Texto contido na mensagem
+	 * @param data: Data em que a mensagem foi criada
 	 */
 	public Mensagem(String autor, String assunto, String corpo, LocalDate data) {
 		this.autor = autor;

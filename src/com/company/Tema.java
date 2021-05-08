@@ -16,15 +16,15 @@ public class Tema {
 	}
 
 	/**
-	 * Adiciona uma instância da classe Publicacao ao ArrayList publicacoes.
-	 * @param nPub Instância da classe Publicacoes a adicionar.
+	 * Adiciona uma instancia da classe Publicacao ao ArrayList publicacoes.
+	 * @param nPub Instancia da classe Publicacoes a adicionar.
 	 */
 	public void criarPub(Publicacao nPub) {
         publicacoes.add(nPub);
     }
 
 	/**
-	 * Imprime as publicacaoes visíveis associadas a uma instância da classe Tema.
+	 * Imprime as publicacaoes visiveis associadas a uma instancia da classe Tema.
 	 */
 	public void printPubsVisiveis() {
 		int k = 0;
@@ -39,7 +39,7 @@ public class Tema {
 	}
 
 	/**
-	 * Imprime todas as publicacaoes associadas a uma instância da classe Tema.
+	 * Imprime todas as publicacaoes associadas a uma instancia da classe Tema.
 	 */
 	public void printPubs() {
 		int k = 0;

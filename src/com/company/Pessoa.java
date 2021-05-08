@@ -3,16 +3,22 @@ package com.company;
 import java.util.ArrayList;
 
 public abstract class Pessoa {
-    // Variáveis de instância
+    // Variaveis de instancia
     private String nome;
     private String mail;
     private int contacto;
     private String pass;
     private ArrayList<Mensagem> mensagens;
 
-    // Variáveis de classe
-    private static String curso = "Engenharia Informática";
-
+    // Variaveis de classe
+    private static String curso = "Engenharia Informatica";
+    /**
+     * 
+     * @param nome: Nome da Pessoa (Aluno ou Professor)
+     * @param mail: Email da Pessoa
+     * @param contacto: Numero de telemovel da pessoa
+     * @param pass: Palavra passe para fazer login
+     */
     public Pessoa(String nome, String mail, int contacto, String pass) {
         this.nome = nome;
         this.mail = mail;
@@ -48,7 +54,11 @@ public abstract class Pessoa {
     public void sendMsg(Mensagem msg) {
         mensagens.add(msg);
     }
-
+    /**
+     * 
+     * @param index: numero da mensagem que a pessoa quer ler
+     * @return da mensagem escolhida para ler
+     */
     public Mensagem getMsgNLidas(int index) {
         ArrayList<Mensagem> nLidas = new ArrayList<>();
         for (int i = 0; i < mensagens.size(); i++) {
@@ -61,7 +71,9 @@ public abstract class Pessoa {
 
         return msg;
     }
-
+    /**
+     * metodo utilizado para ver as mensagens que ainda nao foram lidas
+     */
     public void printMsg() {
         for (int i = 0; i < mensagens.size(); i++) {
             if (!mensagens.get(i).isLida()) {
