@@ -7,6 +7,7 @@ public class Mensagem {
 	private String assunto;
 	private String corpo;
 	private LocalDate data;
+
 	/**
 	 * @param autor
 	 * @param assunto
@@ -20,6 +21,7 @@ public class Mensagem {
 		this.corpo = corpo;
 		this.data = data;
 	}
+
 	@Override
 	public String toString() {
 		return "Mensagem autor=" + autor + ", assunto=" + assunto + ", corpo=" + corpo + ", data=" + data;

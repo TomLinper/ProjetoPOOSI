@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class Main {
     private static Scanner in = new Scanner(System.in);
-    private static Curso engInf = new Curso("Engenharia Informática", 100);
+    private static Curso engInf = new Curso("Engenharia Informatica", 100);
     private static Pessoa userAtual = null;
 
     public static void main(String[] args) {
@@ -82,8 +82,8 @@ public class Main {
 
                 System.out.println("O seu numero de aluno e " + numAluno + ".");
 
-                Pessoa novaP = new Aluno(nome, mail, contacto, pass, numAluno);
-                engInf.addPessoa(novaP);
+                //Adicionar professor ao ArrayList pessoas.
+                engInf.addPessoa(new Aluno(nome, mail, contacto, pass, numAluno));
                 System.out.println("Aluno registado com sucesso!");
 
 
@@ -307,16 +307,20 @@ public class Main {
                     break;
                 case 5:
                 	System.out.println("Qual o nome da pessoa a enviar a mensagem?");
-                	String nome = in.nextLine();
-                	
+                	String dest = in.nextLine();
+
+                    System.out.println("Qual o assunto da mensagem?");
+                	String assunto = in.nextLine();
+
                 	System.out.println("Qual a mensagem?");
                 	String corpo = in.nextLine();
                 	
                 	today = LocalDate.now();
                 	
-                	Mensagem msg = new Mensagem(nome, today, corpo);
-                	
-                	engInf.sendMsg(nome, corpo, msg);
+                	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
+
+                	opcao = 0;
+                	break;
                 case 6:
                     opcao = -1;
                     break;

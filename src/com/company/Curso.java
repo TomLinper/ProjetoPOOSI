@@ -184,4 +184,27 @@ public class Curso {
     public Publicacao getPubFromIndex(UC uc, Tema tema, int index) {
         return uc.getPubFromIndex(tema, index);
     }
+
+    /**
+     * Procura no ArrayList pessoas um objeto com nome igual ao introduzido.
+     * @param nome Nome a procurar.
+     * @return Retorna o objeto caso coincida com o nome, ou null caso nao encontre um objeto com o mesmo nome.
+     */
+    public Pessoa searchPessoa(String nome) {
+        for (Pessoa p : pessoas) {
+            if (p.getNome().equals(nome)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void sendMsg(Mensagem msg, String dest) {
+        Pessoa destP = searchPessoa(dest);
+        if (destP == null) {
+            System.out.println("A pessoa a quem quer enviar mensagem não foi encontrada.");
+        } else {
+            destP.sendMsg(msg);
+        }
+    }
 }
