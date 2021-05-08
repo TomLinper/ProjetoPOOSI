@@ -7,6 +7,7 @@ public class Mensagem {
 	private String assunto;
 	private String corpo;
 	private LocalDate data;
+	private boolean lida;
 
 	/**
 	 * @param autor
@@ -15,16 +16,36 @@ public class Mensagem {
 	 * @param data
 	 */
 	public Mensagem(String autor, String assunto, String corpo, LocalDate data) {
-		super();
 		this.autor = autor;
 		this.assunto = assunto;
 		this.corpo = corpo;
 		this.data = data;
+		this.lida = false;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public String getAssunto() {
+		return assunto;
+	}
+
+	public String getCorpo() {
+		return corpo;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public boolean isLida() {
+		return lida;
 	}
 
 	@Override
 	public String toString() {
-		return "Mensagem autor=" + autor + ", assunto=" + assunto + ", corpo=" + corpo + ", data=" + data;
+		return "Autor: " + autor + "\nData: " + data + "\nAssunto: " + assunto + "\nCorpo: " + corpo;
 	}
 	
 }

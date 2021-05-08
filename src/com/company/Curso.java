@@ -199,6 +199,11 @@ public class Curso {
         return null;
     }
 
+    /**
+     *
+     * @param msg
+     * @param dest
+     */
     public void sendMsg(Mensagem msg, String dest) {
         Pessoa destP = searchPessoa(dest);
         if (destP == null) {
@@ -206,5 +211,9 @@ public class Curso {
         } else {
             destP.sendMsg(msg);
         }
+    }
+
+    public Mensagem getMsgNLidas(Pessoa userAtual, int index) {
+       return userAtual.getMsgNLidas(index);
     }
 }

@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -182,7 +183,37 @@ public class Main {
                     opcao = 0;
                     break;
                 case 2:
+                    System.out.println("Qual o nome da pessoa a enviar a mensagem?");
+                    String dest = in.nextLine();
 
+                    System.out.println("Qual o assunto da mensagem?");
+                    String assunto = in.nextLine();
+
+                    System.out.println("Qual a mensagem?");
+                    String corpo = in.nextLine();
+
+                    LocalDate today = LocalDate.now();
+
+                    engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
+                    System.out.println("Mensagem enviada para " + dest + ".");
+
+                    opcao = 0;
+                    break;
+                case 3:
+                    System.out.println("----CAIXA DE ENTRADA----");
+                    System.out.println("Escolha a mensagem:");
+                    userAtual.printMsg();
+                    int index = in.nextInt();
+
+                    Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+
+                    System.out.println(msg.toString());
+
+                    opcao = 0;
+                    break;
+                case 4:
+                    opcao = -1;
+                    break;
             }
         }
     }
@@ -192,7 +223,7 @@ public class Main {
      */
     public static void menuProf() {
 
-        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagem\n6. Voltar");
+        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -318,14 +349,27 @@ public class Main {
                 	today = LocalDate.now();
                 	
                 	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
+                    System.out.println("Mensagem enviada para " + dest + ".");
 
                 	opcao = 0;
                 	break;
                 case 6:
+                    System.out.println("----CAIXA DE ENTRADA----");
+                    System.out.println("Escolha a mensagem:");
+                    userAtual.printMsg();
+                    int index = in.nextInt();
+
+                    Mensagem msg = engInf.getMsgNLidas(userAtual, index);
+
+                    System.out.println(msg.toString());
+
+                    opcao = 0;
+                    break;
+                case 7:
                     opcao = -1;
                     break;
                 default:
-                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagem\n6. Voltar");
+                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }// fim switch
