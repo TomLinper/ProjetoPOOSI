@@ -33,7 +33,7 @@ public class Main
      */
     private static void loginPage()
     {
-        System.out.println("-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
+        System.out.println("\n-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -59,7 +59,7 @@ public class Main
                     opcao = -1;
                     break;
                 default:
-                    System.out.println("-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
+                    System.out.println("\n-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
                     opcao = in.nextInt();
                     in.nextLine();
             }
@@ -186,7 +186,7 @@ public class Main
      */
     public static void menuAluno()
     {
-        System.out.println("-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
+        System.out.println("\n-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -273,7 +273,7 @@ public class Main
                     loginPage();
                     break;
                 default:
-                    System.out.println("-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
+                    System.out.println("\n-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }//fim switch.
@@ -286,7 +286,7 @@ public class Main
      */
     public static void menuProf()
     {
-        System.out.println("-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
+        System.out.println("\n-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -510,7 +510,11 @@ public class Main
                 case 7:
                     System.out.println("Qual o nome da pessoa que deseja procurar?");
                     String nome = in.nextLine();
-                    engInf.searchPessoa(nome).toString();
+                    if (engInf.searchPessoa(nome).getClass().getName().equals("com.company.Professor")) {
+                        engInf.searchPessoa(nome).toString();
+                    } else{
+                        System.out.println(engInf.searchPessoa(nome).toString());
+                    }
 
                     menuProf();
                     opcao = 0;
@@ -520,7 +524,7 @@ public class Main
                     loginPage();
                     break;
                 default:
-                    System.out.println("-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
+                    System.out.println("\n-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }// fim switch
@@ -667,7 +671,7 @@ public class Main
 
     public static void sendMsg() {
         //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
-        System.out.println("----CAIXA DE ENTRADA----");
+        System.out.println("\n----CAIXA DE ENTRADA----");
         System.out.println("Escolha a mensagem:");
         userAtual.printMsg();
         System.out.println("0. Voltar");

@@ -55,7 +55,7 @@ public class Professor extends Pessoa
     }
 
     public String toString() {
-        System.out.println("Nome: " + this.getNome() + "\nMail: " + this.getMail() + "\nContacto: " + this.getContacto() + "\nUnidade(s) Curriculare(s): ");
+        System.out.println("\n-----" + this.getNome() + "-----\nMail: " + this.getMail() + "\nContacto: " + this.getContacto() + "\nUnidade(s) Curriculare(s): ");
         for (int i = 0; i < uCurriculares.size(); i++) {
             System.out.println((i+1) + ". " + uCurriculares.get(i).getNomeUC());
         }

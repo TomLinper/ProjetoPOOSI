@@ -31,7 +31,7 @@ public class Aluno extends Pessoa
     }
 
     public String toString() {
-        return "Nome: " + this.getNome() + "\nNumero de Aluno: " + this.numAluno + "\nMail: " + this.getMail() + "\nContacto: " + this.getContacto();
+        return "\n-----" + this.getNome() + "-----\nNumero de Aluno: " + this.numAluno + "\nMail: " + this.getMail() + "\nContacto: " + this.getContacto();
     }
 
     @Override
