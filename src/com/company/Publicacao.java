@@ -13,19 +13,19 @@ public abstract class Publicacao
 	// Variaveis de instancia.
     private String autor;
     private LocalDate data;
-    private boolean visibilidade;
+    private boolean visivel;
 
     /**
      * Construtor da classe Publicacao.
      * @param autor Autor da publicacao.
      * @param data Data em que a publicacao foi criada.
-     * @param visibilidade Variavel que controla se a publicacao e visivel ou nao para os alunos.
+     * @param visivel Variavel que controla se a publicacao e visivel ou nao para os alunos.
      */
-    public Publicacao(String autor, LocalDate data, boolean visibilidade)
+    public Publicacao(String autor, LocalDate data, boolean visivel)
     {
         this.autor = autor;
         this.data = data;
-        this.visibilidade = visibilidade;
+        this.visivel = visivel;
     }
 
     public String getAutor()
@@ -38,14 +38,14 @@ public abstract class Publicacao
         return data;
     }
 
-    public boolean isVisibilidade()
+    public boolean isVisivel()
     {
-        return visibilidade;
+        return visivel;
     }
 
-    public void setVisibilidade(boolean visibilidade)
+    public void setVisivel(boolean visivel)
     {
-        this.visibilidade = visibilidade;
+        this.visivel = visivel;
     }
 
     public abstract String getNome();
@@ -59,4 +59,10 @@ public abstract class Publicacao
     public abstract int getnPerguntas();
 
     public abstract void addPergunta(Pergunta pergunta);
+
+    public abstract void printPergunta(int index);
+
+    public abstract void printOpcoes(int index);
+
+    public abstract int getRespCorreta(int index);
 }

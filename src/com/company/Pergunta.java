@@ -23,6 +23,12 @@ public class Pergunta {
         return pergunta;
     }
 
+    public void printOpcoes() {
+        for (int i = 0; i < opcoes.size(); i++) {
+            System.out.println((i+1) + ". " + opcoes.get(i));
+        }
+    }
+
     public int getRespCorreta() {
         return respCorreta;
     }

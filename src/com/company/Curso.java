@@ -129,6 +129,15 @@ public class Curso {
     }
 
     /**
+     * Retorna o objeto da classe UC associada ao index.
+     * @param index Indice da unidade curricular no ArrayList uCurriculares.
+     * @return O objeto da classe UC associada ao indice.
+     */
+    public UC getUCFromIndex(int index) {
+        return uCurriculares.get(index-1);
+    }
+
+    /**
      * Retorna o objeto da classe UC associada ao index na classe Professor.
      * @param userAtual Instancia da classe Pessoa a adicionar ao ArrayList.
      * @param index Indice da unidade curricular no ArrayList uCurriculares na classe Professor.
@@ -246,6 +255,6 @@ public class Curso {
      * @param pub Objeto Publicacao.
      */
     public void mudarVisibilidade(Publicacao pub) {
-        pub.setVisibilidade(!pub.isVisibilidade());
+        pub.setVisivel(!pub.isVisivel());
     }
 }

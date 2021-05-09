@@ -15,9 +15,13 @@ import java.time.LocalDate;
  */
 public class Main
 {
+    //Variaveis de classe.
     private static Scanner in = new Scanner(System.in);
     private static Curso engInf = new Curso(100);
     private static Pessoa userAtual = null;
+    private static UC uc = null;
+    private static Tema tema = null;
+    private static Publicacao pub = null;
 
     public static void main(String[] args)
     {
@@ -189,17 +193,43 @@ public class Main
             switch (opcao) {
                 case 1:
                     //Escolha da publicacao.
-                    UC uc = escolhaUC();
-                    Tema tema = escolhaTema(uc);
-                    Publicacao pub = escolhaPubVisiveis(uc, tema);
+                    uc = escolhaUC();
+                    tema = escolhaTema(uc);
+                    pub = escolhaPub(uc, tema);
 
                     //Visualização do ficheiro.
                     if (pub.getClass().getName().equals("com.company.Anuncio")) {
                         System.out.println("-------" + pub.getTitulo() + "-------");
                         System.out.println(pub.getCorpo());
-                    } else {
+                        System.out.println("Data: " + pub.getData() + "\nAutor: " + pub.getAutor());
+                    } else if (pub.getClass().getName().equals("com.company.Material")){
                         System.out.println("-------" + pub.getNome() + "-------");
                         System.out.println("\nTipo: " + pub.getExtensao() + "\nData: " + pub.getData() + "\nAutor: " + pub.getAutor());
+                    } else {
+                        int corretas = 0;
+                        System.out.println("-------" + pub.getTitulo() + "-------");
+
+                        //Loop para processar perguntas.
+                        for (int i = 0; i < pub.getnPerguntas(); i++) {
+                            //Print da pergunta e escolha da resposta.
+                            System.out.println("Pergunta nº " + (i+1) + "/" + pub.getnPerguntas());
+                            pub.printPergunta(i);
+                            pub.printOpcoes(i);
+                            System.out.println("Escolha o número da opcao correta...");
+
+                            int escolha = in.nextInt();
+                            in.nextLine();
+
+                            //Verificacao da resposta.
+                            if (escolha == pub.getRespCorreta(i)) {
+                                corretas++;
+                                System.out.println("A sua resposta esta correta!");
+                            } else {
+                                System.out.println("A sua resposta esta incorreta.");
+                            }
+                        }
+                        //Resultado final.
+                        System.out.println("Acertou " + corretas + "/" + pub.getnPerguntas() + " perguntas. Nota: " + (20*corretas)/ pub.getnPerguntas() + "/20.");
                     }
 
                     opcao = 0;
@@ -273,7 +303,7 @@ public class Main
                     boolean visibilidade;
 
                     //Escolha do tipo de publicacao.
-                    System.out.println("1. Material\n2. Anuncio\n3. Quizz");
+                    System.out.println("Qual o tipo da publicacao?\n1. Material\n2. Anuncio\n3. Quizz");
                     int aux = in.nextInt();
                     in.nextLine();
 
@@ -291,8 +321,8 @@ public class Main
                     }
 
                     //Escolha do tema.
-                    UC uc = escolhaUC();
-                    Tema tema = escolhaTema(uc);
+                    uc = escolhaUC();
+                    tema = escolhaTema(uc);
 
                     //Criação da publicacao.
                     if (aux == 1) {
@@ -336,6 +366,7 @@ public class Main
 
                             System.out.println("Quantas opcoes de resposta tem a " + (i+1) + "º pergunta?");
                             int nOpcoes = in.nextInt();
+                            in.nextLine();
 
                             ArrayList<String> opcoes = new ArrayList<>(nOpcoes);
 
@@ -374,10 +405,10 @@ public class Main
                     //Escolha da publicacao.
                     uc = escolhaUC();
                     tema = escolhaTema(uc);
-                    Publicacao pub = escolhaPub(uc, tema);
+                    pub = escolhaPub(uc, tema);
 
                     //Alteração da visibilidade do ficheiro.
-                    if (pub.isVisibilidade()) {
+                    if (pub.isVisivel()) {
                         System.out.println("Este ficheiro encontra-se visivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
                     } else {
                         System.out.println("Este ficheiro encontra-se invisivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
@@ -403,9 +434,34 @@ public class Main
                     if (pub.getClass().getName().equals("com.company.Anuncio")) {
                         System.out.println("-------" + pub.getTitulo() + "-------");
                         System.out.println(pub.getCorpo());
-                    } else {
+                        System.out.println("Data: " + pub.getData() + "\nAutor: " + pub.getAutor());
+                    } else if (pub.getClass().getName().equals("com.company.Material")){
                         System.out.println("-------" + pub.getNome() + "-------");
                         System.out.println("\nTipo: " + pub.getExtensao() + "\nData: " + pub.getData() + "\nAutor: " + pub.getAutor());
+                    } else {
+                        int corretas = 0;
+                        System.out.println("-------" + pub.getTitulo() + "-------");
+                        //Loop para processar perguntas.
+                        for (int i = 0; i < pub.getnPerguntas(); i++) {
+                            //Print da pergunta e escolha da resposta.
+                            System.out.println("Pergunta nº " + (i+1) + "/" + pub.getnPerguntas());
+                            pub.printPergunta(i);
+                            pub.printOpcoes(i);
+                            System.out.println("Escolha o indice da opcao correta...");
+
+                            int escolha = in.nextInt();
+                            in.nextLine();
+
+                            //Verificacao da resposta.
+                            if (escolha == pub.getRespCorreta(i)) {
+                                corretas++;
+                                System.out.println("A sua resposta esta correta!");
+                            } else {
+                                System.out.println("A sua resposta esta incorreta.");
+                            }
+                        }
+                        //Resultado final.
+                        System.out.println("Acertou " + corretas + "/" + pub.getnPerguntas() + " perguntas. Nota: " + (20*corretas)/ pub.getnPerguntas() + "/20.");
                     }
 
                     opcao = 0;
@@ -472,17 +528,35 @@ public class Main
      */
     public static UC escolhaUC()
     {
-        System.out.println("Escolha a localizacao do ficheiro:");
-        engInf.printUCProf(userAtual);
-        System.out.println("0. Voltar ao menu anterior");
-        int indexUC = in.nextInt();
-        in.nextLine();
+        if (userAtual.getClass().getName().equals("com.company.Professor")) {
+            System.out.println("Escolha a localizacao do ficheiro:");
+            engInf.printUCProf(userAtual);
 
-        if (indexUC == 0) {
-            menuProf();
+            System.out.println("0. Voltar ao menu anterior");
+            int indexUC = in.nextInt();
+            in.nextLine();
+
+            if (indexUC == 0) {
+                menuProf();
+            }
+
+            return engInf.getUCProfFromIndex(userAtual, indexUC);
+        } else {
+            System.out.println("Escolha a localizacao do ficheiro:");
+            engInf.printUCs();
+
+            System.out.println("0. Voltar ao menu anterior");
+            int indexUC = in.nextInt();
+            in.nextLine();
+
+            if (indexUC == 0) {
+                menuProf();
+            }
+
+            return engInf.getUCFromIndex(indexUC);
         }
 
-        return engInf.getUCProfFromIndex(userAtual, indexUC);
+
     }//fim escolhaUC
 
     /**

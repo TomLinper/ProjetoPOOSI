@@ -1,5 +1,7 @@
 package com.company;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -32,8 +34,20 @@ public class Quizz extends Publicacao {
         return nPerguntas;
     }
 
+    public int getRespCorreta(int index) {
+        return perguntas.get(index).getRespCorreta();
+    }
+
     public void addPergunta(Pergunta pergunta) {
         perguntas.add(pergunta);
+    }
+
+    public void printPergunta(int index) {
+        System.out.println(perguntas.get(index).getPergunta());
+    }
+
+    public void printOpcoes(int index) {
+        perguntas.get(index).printOpcoes();
     }
 
     @Override

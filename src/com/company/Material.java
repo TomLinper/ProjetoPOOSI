@@ -61,5 +61,18 @@ public class Material extends Publicacao
 
     }
 
+    @Override
+    public void printPergunta(int index) {
 
+    }
+
+    @Override
+    public void printOpcoes(int index) {
+
+    }
+
+    @Override
+    public int getRespCorreta(int index) {
+        return 0;
+    }
 }

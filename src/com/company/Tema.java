@@ -45,9 +45,9 @@ public class Tema
 	{
 		int k = 0;
 		for (Publicacao p : publicacoes) {
-			if (p.getClass().getName().equals("com.company.Material") && p.isVisibilidade()) {
+			if (p.getClass().getName().equals("com.company.Material") && p.isVisivel()) {
 				System.out.println((k+1) + ". "+ p.getNome() + "." + p.getExtensao());
-			} else if (p.getClass().getName().equals("com.company.Anuncio") && p.isVisibilidade()) {
+			} else if (p.isVisivel()) {
 				System.out.println((k+1) + ". " + p.getTitulo());
 			}
 			k++;
@@ -63,7 +63,7 @@ public class Tema
 		for (Publicacao p : publicacoes) {
 			if (p.getClass().getName().equals("com.company.Material")) {
 				System.out.println((k+1) + ". "+ p.getNome() + "." + p.getExtensao());
-			} else if (p.getClass().getName().equals("com.company.Anuncio")) {
+			} else {
 				System.out.println((k+1) + ". " + p.getTitulo());
 			}
 			k++;
