@@ -273,7 +273,7 @@ public class Main
                     loginPage();
                     break;
                 default:
-                    System.out.println("\n-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
+                    System.out.println("\n-----Menu Aluno-----\n1. Ver uma publicacao\n2. Enviar mensagem\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }//fim switch.
@@ -685,7 +685,7 @@ public class Main
                 //Obtencao e impressao da mensagem.
                 Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
                 msg.setLida(true);
-                System.out.println(msg.toString());
+                System.out.println("\n" + msg.toString() + "\n");
 
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                 System.out.println("Input error. Por favor insira uma das opcoes acima.");
