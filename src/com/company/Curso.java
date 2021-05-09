@@ -202,7 +202,7 @@ public class Curso
     }
 
     /**
-     * Imprime as publicaaoes marcadas como visiveis no ArrayList publicacoes presente na instância da classe Tema associada a UC.
+     * Imprime as publicacoes marcadas como visiveis no ArrayList publicacoes presente na instância da classe Tema associada a UC.
      * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
      * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
      */
@@ -212,7 +212,7 @@ public class Curso
     }
 
     /**
-     * Imprime todas as publicaaoes no ArrayList publicacoes presente na instancia da classe Tema associada a UC.
+     * Imprime as publicaaoes no ArrayList publicacoes presente na instância da classe Tema associada a UC.
      * @param uc Instancia da classe UC onde estão localizados os temas e publicacoes.
      * @param tema Instancia da classe Tema onde estão localizadas as publicacoes.
      */

@@ -26,6 +26,9 @@ public class Pergunta
         return pergunta;
     }
 
+    /**
+     * Imprime as opcoes de resposta.
+     */
     public void printOpcoes()
     {
         for (int i = 0; i < opcoes.size(); i++) {

@@ -48,11 +48,19 @@ public class Quizz extends Publicacao
         perguntas.add(pergunta);
     }
 
+    /**
+     * Imprime a pergunta.
+     * @param index Indice da pergunta.
+     */
     public void printPergunta(int index)
     {
         System.out.println(perguntas.get(index).getPergunta());
     }
 
+    /**
+     * Imprime as opcoes de resposta.
+     * @param index Indice da pergunta.
+     */
     public void printOpcoes(int index)
     {
         perguntas.get(index).printOpcoes();
