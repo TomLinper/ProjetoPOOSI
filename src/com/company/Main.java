@@ -300,9 +300,15 @@ public class Main
 
                     //Definir visibilidade da publicacao.
                     System.out.println("Deseja que o ficheiro fique visível logo após publicação?\n1. Sim\n2. Não");
-                    int aux1 = in.nextInt();
-                    in.nextLine();
-
+                    int aux1 = 0;
+                    try {
+                        aux1 = in.nextInt();
+                        in.nextLine();
+                    }
+                    catch(InputMismatchException inputMismatchException){
+                        System.out.println("Escolha uma opcao valida");
+                        menuProf();
+                    }
                     if (aux1 == 1) {
                         visibilidade = true;
                     } else {
