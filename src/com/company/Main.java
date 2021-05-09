@@ -415,8 +415,15 @@ public class Main
                     } else {
                         System.out.println("Este ficheiro encontra-se invisivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
                     }
-                    aux = in.nextInt();
-                    in.nextLine();
+                    aux = 0;
+                    try {
+                    		aux = in.nextInt();
+                    		in.nextLine();
+                    }
+                    	catch(InputMismatchException inputmissmatchexception) {
+                    		System.out.println("Escolha inválida...");
+                    		menuProf();
+                    	}
 
                     if (aux == 1) {
                         engInf.mudarVisibilidade(pub);
@@ -451,10 +458,17 @@ public class Main
                             pub.printPergunta(i);
                             pub.printOpcoes(i);
                             System.out.println("Escolha o indice da opcao correta...");
-
-                            int escolha = in.nextInt();
-                            in.nextLine();
-
+                            
+                            int escolha = 0;
+                            
+                            try{
+                            	escolha = in.nextInt();
+                            	in.nextLine();
+                            }
+                            catch(InputMismatchException inputmissmatchexception) {
+                            	System.out.println("Escolha inválida...");
+                            	menuProf();
+                            }
                             //Verificacao da resposta.
                             if (escolha == pub.getRespCorreta(i)) {
                                 corretas++;
@@ -522,9 +536,15 @@ public class Main
             System.out.println("Escolha a localizacao do ficheiro:");
             engInf.printUCProf(userAtual);
 
-            System.out.println("0. Voltar ao menu anterior");
-            indexUC = in.nextInt();
-            in.nextLine();
+            indexUC= 0;
+            try{
+            	System.out.println("0. Voltar ao menu anterior");
+            	indexUC = in.nextInt();
+                in.nextLine();
+            }
+           catch(InputMismatchException inputmissmatchexception) {
+        	   System.out.println("Não foi possível concretizar esta ação.");
+           }
 
             if (indexUC == 0) {
                 menuProf();
