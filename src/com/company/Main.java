@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
-//TODO Ver detalhes da pessoa
-//TODO Tabs nas classes
-
 /**
  * Classe onde ocorre a interacao entre o utilizador e o sistema.
  *
