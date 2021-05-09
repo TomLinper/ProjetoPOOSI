@@ -54,6 +54,15 @@ public class Professor extends Pessoa
         return uCurriculares.get(index-1);
     }
 
+    public String toString() {
+        System.out.println("Nome: " + this.getNome() + "\nMail: " + this.getMail() + "\nContacto: " + this.getContacto() + "\nUnidade(s) Curriculare(s): ");
+        for (int i = 0; i < uCurriculares.size(); i++) {
+            System.out.println((i+1) + ". " + uCurriculares.get(i).getNomeUC());
+        }
+
+        return null;
+    }
+
     @Override
     public int getNumAluno()
     {

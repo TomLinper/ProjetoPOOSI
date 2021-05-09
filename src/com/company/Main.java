@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -34,33 +33,33 @@ public class Main
      */
     private static void loginPage()
     {
-        System.out.println("-----Login-----\n1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
+        System.out.println("-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
         int opcao = in.nextInt();
         in.nextLine();
 
         while (opcao != -1) {
             switch (opcao) {
                 case 1:
-                    login("com.company.Aluno");
+                    registarUC();
                     opcao = 0;
                     break;
                 case 2:
-                    login("com.company.Professor");
-                    opcao = 0;
-                    break;
-                case 3:
                     registar();
                     opcao = 0;
                     break;
+                case 3:
+                    login("com.company.Aluno");
+                    opcao = 0;
+                    break;
                 case 4:
-                    registarUC();
+                    login("com.company.Professor");
                     opcao = 0;
                     break;
                 case 5:
                     opcao = -1;
                     break;
                 default:
-                    System.out.println("1. Fazer login como professor\n2. Fazer login como aluno\n3. Registar utlizador\n4. Registar nova UC\n5. Terminar");
+                    System.out.println("-----Login-----\n1. Registar nova UC\n2. Registar utilizador\n3. Fazer login como aluno\n4. Fazer login como professor\n5. Terminar");
                     opcao = in.nextInt();
                     in.nextLine();
             }
@@ -136,7 +135,7 @@ public class Main
         } else if (opcao == 3) {
             loginPage();
         } else {
-            System.out.println("Opcao inexistente. Por favor escolha uma das opcoes abaixo.");
+            System.out.println("Input error. Por favor insira uma das opcoes acima.");
             registar();
         }
     } //fim registar
@@ -187,7 +186,7 @@ public class Main
      */
     public static void menuAluno()
     {
-        System.out.println("1. Ver uma publicacao \n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Voltar");
+        System.out.println("-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -197,7 +196,7 @@ public class Main
                     //Escolha da publicacao.
                     uc = escolhaUC();
                     tema = escolhaTema(uc);
-                    pub = escolhaPub(uc, tema);
+                    pub = escolhaPubVisiveis(uc, tema);
 
                     //Visualização do ficheiro.
                     if (pub.getClass().getName().equals("com.company.Anuncio")) {
@@ -235,7 +234,6 @@ public class Main
                     }
 
                     menuAluno();
-
                     opcao = 0;
                     break;
                 case 2:
@@ -256,20 +254,28 @@ public class Main
                     System.out.println("Mensagem enviada para " + dest + ".");
 
                     menuAluno();
-
                     opcao = 0;
                     break;
                 case 3:
                     sendMsg();
 
                     menuAluno();
-
                     opcao = 0;
                     break;
                 case 4:
+                    System.out.println(userAtual.toString());
+
+                    menuAluno();
+                    opcao = 0;
+                    break;
+                case 5:
                     opcao = -1;
                     loginPage();
                     break;
+                default:
+                    System.out.println("-----Menu Aluno-----\n1. Ver uma publicacao\n2. Mandar mensagem a um Professor\n3. Ver mensagens\n4. Ver perfil\n5. Voltar");
+                    opcao = in.nextInt();
+                    in.nextLine();
             }//fim switch.
         }//fim while.
 
@@ -280,110 +286,18 @@ public class Main
      */
     public static void menuProf()
     {
-
-        System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");
+        System.out.println("-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
         int opcao = in.nextInt();
         in.nextLine();
 
         while (opcao != -1) {
             switch (opcao) {
                 case 1:
-                    Publicacao nPub = null;
-                    boolean visibilidade;
-
-                    //Escolha do tipo de publicacao.
-                    System.out.println("Qual o tipo da publicacao?\n1. Material\n2. Anuncio\n3. Quizz");
-                    int aux = in.nextInt();
-                    in.nextLine();
-
-                    LocalDate today = LocalDate.now();
-
-                    //Definir visibilidade da publicacao.
-                    System.out.println("Deseja que o ficheiro fique visível logo após publicação?\n1. Sim\n2. Não");
-                    int aux1 = in.nextInt();
-                    in.nextLine();
-
-                    if (aux1 == 1) {
-                        visibilidade = true;
-                    } else {
-                        visibilidade = false;
-                    }
-
-                    //Escolha do tema.
-                    uc = escolhaUC();
-                    tema = escolhaTema(uc);
-
-                    //Criação da publicacao.
-                    if (aux == 1) {
-                        System.out.println("Qual o nome do ficheiro?");
-                        String nome = in.nextLine();
-
-                        System.out.println("Qual a extensao do ficheiro?");
-                        String ext = in.nextLine();
-
-                        nPub = new Material(userAtual.getNome(), today, ext, nome, visibilidade);
-                    } else if (aux == 2) {
-                        System.out.println("Qual o titulo do anuncio?");
-                        String titulo = in.nextLine();
-
-                        System.out.println("Qual o corpo do anuncio?");
-                        String corpo = in.nextLine();
-
-                        nPub = new Anuncio(userAtual.getNome(), today, visibilidade, titulo, corpo);
-                    } else if (aux == 3) {
-                        System.out.println("Qual o titulo do quizz?");
-                        String titulo = in.nextLine();
-
-                        System.out.println("Quantas perguntas irá ter o quizz?");
-                        int nPerguntas = in.nextInt();
-                        in.nextLine();
-
-                        nPub = new Quizz(userAtual.getNome(), today, visibilidade, titulo, nPerguntas);
-                    } else {
-                        System.out.println("Por favor insira o valor correspondente ao ficheiro que quer criar.");
-                        menuProf();
-                    }
-
-                    engInf.criarPub(uc, tema, nPub);
-
-                    //Criacao do quizz.
-                    if (aux == 3) {
-                        //Loop para processar perguntas.
-                        for (int i = 0; i < nPub.getnPerguntas(); i++) {
-                            System.out.println("Qual a " + (i+1) + "º pergunta?");
-                            String pergunta = in.nextLine();
-
-                            System.out.println("Quantas opcoes de resposta tem a " + (i+1) + "º pergunta?");
-                            int nOpcoes = in.nextInt();
-                            in.nextLine();
-
-                            ArrayList<String> opcoes = new ArrayList<>(nOpcoes);
-
-                            //Loop para processar opcoes.
-                            for (int k = 0; k < nOpcoes; k++) {
-                                System.out.println("Qual a " + (k+1) + " opcao de resposta?");
-                                opcoes.add(in.nextLine());
-                            }
-
-                            System.out.println("Qual o indice da opcao correta?");
-                            int respCorreta = in.nextInt();
-                            in.nextLine();
-
-                            nPub.addPergunta(new Pergunta(pergunta, respCorreta, opcoes));
-                        }
-                    }
-
-                    menuProf();
-
-                    opcao = 0;
-                    break;
-                case 2:
-
                     //Obtencao de dados.
                     System.out.println("A que disciplina quer adicionar o tema?");
                     engInf.printUCProf(userAtual);
                     System.out.println("0. Voltar");
-                    aux = in.nextInt();
+                    int aux = in.nextInt();
                     in.nextLine();
 
                     if (aux == 0) {
@@ -403,6 +317,103 @@ public class Main
 
                     opcao = 0;
                     break;
+
+                case 2:
+                Publicacao nPub = null;
+                boolean visibilidade;
+
+                //Escolha do tipo de publicacao.
+                System.out.println("Qual o tipo da publicacao?\n1. Material\n2. Anuncio\n3. Quizz\n0. Voltar");
+                aux = in.nextInt();
+                in.nextLine();
+
+                if (aux == 0) {
+                    menuProf();
+                }
+
+                LocalDate today = LocalDate.now();
+
+                //Definir visibilidade da publicacao.
+                System.out.println("Deseja que o ficheiro fique visível logo após publicação?\n1. Sim\n2. Não");
+                int aux1 = in.nextInt();
+                in.nextLine();
+
+                if (aux1 == 1) {
+                    visibilidade = true;
+                } else {
+                    visibilidade = false;
+                }
+
+                //Escolha do tema.
+                uc = escolhaUC();
+                tema = escolhaTema(uc);
+
+                //Criação da publicacao.
+                if (aux == 1) {
+                    System.out.println("Qual o nome do ficheiro?");
+                    String nome = in.nextLine();
+
+                    System.out.println("Qual a extensao do ficheiro?");
+                    String ext = in.nextLine();
+
+                    nPub = new Material(userAtual.getNome(), today, ext, nome, visibilidade);
+
+                } else if (aux == 2) {
+                    System.out.println("Qual o titulo do anuncio?");
+                    String titulo = in.nextLine();
+
+                    System.out.println("Qual o corpo do anuncio?");
+                    String corpo = in.nextLine();
+
+                    nPub = new Anuncio(userAtual.getNome(), today, visibilidade, titulo, corpo);
+
+                } else if (aux == 3) {
+                    System.out.println("Qual o titulo do quizz?");
+                    String titulo = in.nextLine();
+
+                    System.out.println("Quantas perguntas irá ter o quizz?");
+                    int nPerguntas = in.nextInt();
+                    in.nextLine();
+
+                    nPub = new Quizz(userAtual.getNome(), today, visibilidade, titulo, nPerguntas);
+
+                } else {
+                    System.out.println("Por favor insira o valor correspondente ao ficheiro que quer criar.");
+                    menuProf();
+                }
+
+                engInf.criarPub(uc, tema, nPub);
+
+                //Criacao do quizz.
+                if (aux == 3) {
+                    //Loop para processar perguntas.
+                    for (int i = 0; i < nPub.getnPerguntas(); i++) {
+                        System.out.println("Qual a " + (i+1) + "º pergunta?");
+                        String pergunta = in.nextLine();
+
+                        System.out.println("Quantas opcoes de resposta tem a " + (i+1) + "º pergunta?");
+                        int nOpcoes = in.nextInt();
+                        in.nextLine();
+
+                        ArrayList<String> opcoes = new ArrayList<>(nOpcoes);
+
+                        //Loop para processar opcoes.
+                        for (int k = 0; k < nOpcoes; k++) {
+                            System.out.println("Qual a " + (k+1) + " opcao de resposta?");
+                            opcoes.add(in.nextLine());
+                        }
+
+                        System.out.println("Qual o indice da opcao correta?");
+                        int respCorreta = in.nextInt();
+                        in.nextLine();
+
+                        nPub.addPergunta(new Pergunta(pergunta, respCorreta, opcoes));
+                    }
+                }
+
+                menuProf();
+                opcao = 0;
+                break;
                 case 3:
                     //Escolha da publicacao.
                     uc = escolhaUC();
@@ -415,15 +426,9 @@ public class Main
                     } else {
                         System.out.println("Este ficheiro encontra-se invisivel. Deseja alterar a sua visibilidade?\n1. Sim\n2. Não");
                     }
-                    aux = 0;
-                    try {
-                    		aux = in.nextInt();
-                    		in.nextLine();
-                    }
-                    	catch(InputMismatchException inputmissmatchexception) {
-                    		System.out.println("Escolha inválida...");
-                    		menuProf();
-                    	}
+                    aux = in.nextInt();
+                    in.nextLine();
+
 
                     if (aux == 1) {
                         engInf.mudarVisibilidade(pub);
@@ -458,17 +463,10 @@ public class Main
                             pub.printPergunta(i);
                             pub.printOpcoes(i);
                             System.out.println("Escolha o indice da opcao correta...");
-                            
-                            int escolha = 0;
-                            
-                            try{
-                            	escolha = in.nextInt();
-                            	in.nextLine();
-                            }
-                            catch(InputMismatchException inputmissmatchexception) {
-                            	System.out.println("Escolha inválida...");
-                            	menuProf();
-                            }
+
+                            int escolha = in.nextInt();
+                            in.nextLine();
+
                             //Verificacao da resposta.
                             if (escolha == pub.getRespCorreta(i)) {
                                 corretas++;
@@ -481,6 +479,7 @@ public class Main
                         System.out.println("Acertou " + corretas + "/" + pub.getnPerguntas() + " perguntas. Nota: " + (20*corretas)/ pub.getnPerguntas() + "/20.");
                     }
 
+                    menuProf();
                     opcao = 0;
                     break;
                 case 5:
@@ -500,21 +499,28 @@ public class Main
                 	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
 
                     menuProf();
-
                 	opcao = 0;
                 	break;
                 case 6:
                     sendMsg();
-                    menuProf();
 
+                    menuProf();
                     opcao = 0;
                     break;
                 case 7:
+                    System.out.println("Qual o nome da pessoa que deseja procurar?");
+                    String nome = in.nextLine();
+                    engInf.searchPessoa(nome).toString();
+
+                    menuProf();
+                    opcao = 0;
+                    break;
+                case 8:
                     opcao = -1;
                     loginPage();
                     break;
                 default:
-                    System.out.println("1. Criar nova publicacao\n2. Criar novo tema\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Voltar");
+                    System.out.println("-----Menu Professor-----\n1. Criar novo tema\n2. Criar nova publicacao\n3. Alterar visibilidade das publicacoes\n4. Ver uma publicacao\n5. Enviar mensagens\n6. Ver mensagens\n7. Procurar pessoa\n8. Voltar");
                     opcao = in.nextInt();
                     in.nextLine();
             }// fim switch
@@ -535,16 +541,9 @@ public class Main
 
             System.out.println("Escolha a localizacao do ficheiro:");
             engInf.printUCProf(userAtual);
-
-            indexUC= 0;
-            try{
-            	System.out.println("0. Voltar ao menu anterior");
-            	indexUC = in.nextInt();
-                in.nextLine();
-            }
-           catch(InputMismatchException inputmissmatchexception) {
-        	   System.out.println("Não foi possível concretizar esta ação.");
-           }
+            System.out.println("0. Voltar ao menu anterior");
+            indexUC = in.nextInt();
+            in.nextLine();
 
             if (indexUC == 0) {
                 menuProf();
@@ -561,20 +560,19 @@ public class Main
 
             System.out.println("Escolha a localizacao do ficheiro:");
             engInf.printUCs();
-
             System.out.println("0. Voltar ao menu anterior");
             indexUC = in.nextInt();
             in.nextLine();
 
             if (indexUC == 0) {
-                menuProf();
+                menuAluno();
             }
 
             try {
                 UC = engInf.getUCFromIndex(indexUC);
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                 System.out.println("Input error. Por favor insira uma das opcoes acima.");
-                menuProf();
+                menuAluno();
             }
 
         }
@@ -601,7 +599,14 @@ public class Main
             escolhaTema(uc);
         }
 
-        return engInf.getTemaFromIndex(uc, indexTema);
+        try {
+            tema = engInf.getTemaFromIndex(uc, indexTema);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("Input error. Por favor insira uma das opcoes acima.");
+            escolhaTema(uc);
+        }
+
+        return tema;
     }//fim escolhaTema
 
     /**
@@ -622,7 +627,14 @@ public class Main
             escolhaPubVisiveis(uc, tema);
         }
 
-        return engInf.getPubFromIndex(uc, tema, indexPub);
+        try {
+            pub = engInf.getPubFromIndex(uc, tema, indexPub);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("Input error. Por favor insira uma das opcoes acima.");
+            escolhaPubVisiveis(uc, tema);
+        }
+
+        return pub;
     }//fim escolhaPubVisiveis
 
     /**
@@ -643,7 +655,14 @@ public class Main
             escolhaPub(uc, tema);
         }
 
-        return engInf.getPubFromIndex(uc, tema, indexPub);
+        try {
+            pub = engInf.getPubFromIndex(uc, tema, indexPub);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            System.out.println("Input error. Por favor insira uma das opcoes acima.");
+            escolhaPub(uc, tema);
+        }
+
+        return pub;
     }//fim escolhaPub
 
     public static void sendMsg() {
@@ -663,6 +682,7 @@ public class Main
                 Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
                 msg.setLida(true);
                 System.out.println(msg.toString());
+
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                 System.out.println("Input error. Por favor insira uma das opcoes acima.");
             }

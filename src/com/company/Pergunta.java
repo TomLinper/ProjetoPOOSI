@@ -2,7 +2,9 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Pergunta {
+public class Pergunta
+
+{
     //Variaveis de instancia.
     private String pergunta;
     private ArrayList<String> opcoes;
@@ -19,17 +21,20 @@ public class Pergunta {
         this.opcoes = opcoes;
     }
 
-    public String getPergunta() {
+    public String getPergunta()
+    {
         return pergunta;
     }
 
-    public void printOpcoes() {
+    public void printOpcoes()
+    {
         for (int i = 0; i < opcoes.size(); i++) {
             System.out.println((i+1) + ". " + opcoes.get(i));
         }
     }
 
-    public int getRespCorreta() {
+    public int getRespCorreta()
+    {
         return respCorreta;
     }
 }

@@ -30,6 +30,10 @@ public class Aluno extends Pessoa
         return numAluno;
     }
 
+    public String toString() {
+        return "Nome: " + this.getNome() + "\nNumero de Aluno: " + this.numAluno + "\nMail: " + this.getMail() + "\nContacto: " + this.getContacto();
+    }
+
     @Override
     public void printUC() { }
 
