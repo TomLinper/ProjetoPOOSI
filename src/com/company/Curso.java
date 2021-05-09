@@ -234,9 +234,10 @@ public class Curso {
     public void sendMsg(Mensagem msg, String dest) {
         Pessoa destP = searchPessoa(dest);
         if (destP == null) {
-            System.out.println("A pessoa a quem quer enviar mensagem não foi encontrada.");
+            System.out.println("A pessoa a quem quer enviar mensagem nao foi encontrada.");
         } else {
             destP.sendMsg(msg);
+            System.out.println("Mensagem enviada para " + dest + ".");
         }
     }
 

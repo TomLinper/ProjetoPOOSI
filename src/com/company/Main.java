@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -33,7 +34,7 @@ public class Main
      */
     private static void loginPage()
     {
-        System.out.println("1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
+        System.out.println("-----Login-----\n1. Fazer login como aluno\n2. Fazer login como professor\n3. Registar utilizador\n4. Registar nova UC\n5. Terminar");
         int opcao = in.nextInt();
         in.nextLine();
 
@@ -90,12 +91,13 @@ public class Main
             System.out.println("Qual o seu email?");
             String mail = in.nextLine();
 
+
             //Variaveis para as sub-classes (1. Aluno / 2. Professor).
             if (opcao == 1) {
                 //Criar e verificar número de aluno.
                 int numAluno = (int) (Math.random() * 100000);
                 while (!engInf.checkNum(numAluno)) {
-                        numAluno = (int) (Math.random() * 100000);
+                    numAluno = (int) (Math.random() * 100000);
                 }
 
                 System.out.println("O seu numero de aluno e " + numAluno + ".");
@@ -232,6 +234,8 @@ public class Main
                         System.out.println("Acertou " + corretas + "/" + pub.getnPerguntas() + " perguntas. Nota: " + (20*corretas)/ pub.getnPerguntas() + "/20.");
                     }
 
+                    menuAluno();
+
                     opcao = 0;
                     break;
                 case 2:
@@ -256,22 +260,7 @@ public class Main
                     opcao = 0;
                     break;
                 case 3:
-                    //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
-                    System.out.println("----CAIXA DE ENTRADA----");
-                    System.out.println("Escolha a mensagem:");
-                    userAtual.printMsg();
-                    System.out.println("0. Voltar");
-
-                    //Escolha da mensagem a visualizar.
-                    int index = in.nextInt();
-                    in.nextLine();
-
-                    if (index != 0){
-                        //Obtencao e impressao da mensagem.
-                        Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
-                        msg.setLida(true);
-                        System.out.println(msg.toString());
-                    }
+                    sendMsg();
 
                     menuAluno();
 
@@ -384,20 +373,33 @@ public class Main
                         }
                     }
 
+                    menuProf();
+
                     opcao = 0;
                     break;
                 case 2:
+
                     //Obtencao de dados.
                     System.out.println("A que disciplina quer adicionar o tema?");
                     engInf.printUCProf(userAtual);
+                    System.out.println("0. Voltar");
                     aux = in.nextInt();
                     in.nextLine();
+
+                    if (aux == 0) {
+                        menuProf();
+                    }
 
                     System.out.println("Qual o nome do tema?");
                     String nomeTema = in.nextLine();
 
-                    //Criacao do tema.
-                    engInf.criarTema(engInf.getUCProfFromIndex(userAtual, aux), nomeTema);
+                    try {
+                        //Criacao do tema.
+                        engInf.criarTema(engInf.getUCProfFromIndex(userAtual, aux), nomeTema);
+                    } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                        System.out.println("Input error. Por favor insira uma das opcoes acima.");
+                        menuProf();
+                    }
 
                     opcao = 0;
                     break;
@@ -418,7 +420,8 @@ public class Main
 
                     if (aux == 1) {
                         engInf.mudarVisibilidade(pub);
-                    } else {
+                    } else if (aux > 2){
+                        System.out.println("Input error. Por favor insira uma das opcoes acima.");
                         menuProf();
                     }
 
@@ -481,30 +484,13 @@ public class Main
 
                     //Criacao de um objeto do tipo Mensagem e sua adicao ao ArrayList mensagens.
                 	engInf.sendMsg(new Mensagem(userAtual.getNome(), assunto, corpo, today), dest);
-                    System.out.println("Mensagem enviada para " + dest + ".");
 
                     menuProf();
 
                 	opcao = 0;
                 	break;
                 case 6:
-                    //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
-                    System.out.println("----CAIXA DE ENTRADA----");
-                    System.out.println("Escolha a mensagem:");
-                    userAtual.printMsg();
-                    System.out.println("0. Voltar");
-
-                    //Escolha da mensagem a visualizar.
-                    int index = in.nextInt();
-                    in.nextLine();
-
-                    //Obtencao e impressao da mensagem.
-                    if (index != 0){
-                        Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
-                        msg.setLida(true);
-                        System.out.println(msg);
-                    }
-
+                    sendMsg();
                     menuProf();
 
                     opcao = 0;
@@ -528,33 +514,52 @@ public class Main
      */
     public static UC escolhaUC()
     {
+        int indexUC = 0;
+        UC UC = null;
+
         if (userAtual.getClass().getName().equals("com.company.Professor")) {
+
             System.out.println("Escolha a localizacao do ficheiro:");
             engInf.printUCProf(userAtual);
 
             System.out.println("0. Voltar ao menu anterior");
-            int indexUC = in.nextInt();
+            indexUC = in.nextInt();
             in.nextLine();
 
             if (indexUC == 0) {
                 menuProf();
             }
 
-            return engInf.getUCProfFromIndex(userAtual, indexUC);
+            try {
+                UC = engInf.getUCProfFromIndex(userAtual, indexUC);
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                System.out.println("Input error. Por favor insira uma das opcoes acima.");
+                menuProf();
+            }
+
         } else {
+
             System.out.println("Escolha a localizacao do ficheiro:");
             engInf.printUCs();
 
             System.out.println("0. Voltar ao menu anterior");
-            int indexUC = in.nextInt();
+            indexUC = in.nextInt();
             in.nextLine();
 
             if (indexUC == 0) {
                 menuProf();
             }
 
-            return engInf.getUCFromIndex(indexUC);
+            try {
+                UC = engInf.getUCFromIndex(indexUC);
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                System.out.println("Input error. Por favor insira uma das opcoes acima.");
+                menuProf();
+            }
+
         }
+
+        return UC;
 
 
     }//fim escolhaUC
@@ -621,4 +626,26 @@ public class Main
         return engInf.getPubFromIndex(uc, tema, indexPub);
     }//fim escolhaPub
 
+    public static void sendMsg() {
+        //Impressao do assunto e autor das mensagens nao visualizadas no ArrayList mensagens.
+        System.out.println("----CAIXA DE ENTRADA----");
+        System.out.println("Escolha a mensagem:");
+        userAtual.printMsg();
+        System.out.println("0. Voltar");
+
+        //Escolha da mensagem a visualizar.
+        int index = in.nextInt();
+        in.nextLine();
+
+        if (index != 0){
+            try {
+                //Obtencao e impressao da mensagem.
+                Mensagem msg = engInf.getMsgFromIndex(userAtual, index);
+                msg.setLida(true);
+                System.out.println(msg.toString());
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                System.out.println("Input error. Por favor insira uma das opcoes acima.");
+            }
+        }
+    }
 }//fim Main
